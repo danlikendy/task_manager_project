@@ -165,3 +165,51 @@ def test_get_tasks_by_status_endpoint(client, clean_db):
     data = response.json()
     assert len(data) == 1
     assert data[0]["status"] == "создано"
+
+
+def test_search_tasks(client, clean_db):
+    client.post("/tasks/", json={"title": "Python задача", "description": "Разработка на Python"})
+    client.post("/tasks/", json={"title": "API задача", "description": "Создание REST API"})
+    client.post("/tasks/", json={"title": "Тестовая задача"})
+    
+    response = client.get("/tasks/search/?query=Python")
+    assert response.status_code == 200
+    
+    data = response.json()
+    assert len(data) == 1
+    assert "Python" in data[0]["title"]
+
+
+def test_get_tasks_with_filters(client, clean_db):
+    client.post("/tasks/", json={"title": "Задача 1", "status": "создано", "priority": 1})
+    client.post("/tasks/", json={"title": "Задача 2", "status": "в работе", "priority": 3})
+    client.post("/tasks/", json={"title": "Задача 3", "status": "создано", "priority": 2})
+    
+    # Фильтр по статусу
+    response = client.get("/tasks/?status=создано")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) == 2
+    assert all(task["status"] == "создано" for task in data)
+    
+    # Фильтр по приоритету
+    response = client.get("/tasks/?priority=3")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) == 1
+    assert data[0]["priority"] == 3
+
+
+def test_get_tasks_stats(client, clean_db):
+    client.post("/tasks/", json={"title": "Задача 1", "status": "создано", "priority": 1, "tags": ["backend"]})
+    client.post("/tasks/", json={"title": "Задача 2", "status": "в работе", "priority": 3, "tags": ["backend", "api"]})
+    
+    response = client.get("/tasks/stats/")
+    assert response.status_code == 200
+    
+    data = response.json()
+    assert data["total_tasks"] == 2
+    assert data["status_distribution"]["создано"] == 1
+    assert data["status_distribution"]["в работе"] == 1
+    assert "backend" in data["popular_tags"]
+    assert "api" in data["popular_tags"]

@@ -51,18 +51,21 @@ async def create_task(task: TaskCreate):
 async def get_tasks(
     skip: int = Query(0, ge=0, description="Количество задач для пропуска"),
     limit: int = Query(100, ge=1, le=1000, description="Максимальное количество задач"),
-    status: Optional[TaskStatus] = Query(None, description="Фильтр по статусу")
+    status: Optional[TaskStatus] = Query(None, description="Фильтр по статусу"),
+    tags: Optional[List[str]] = Query(None, description="Фильтр по тегам"),
+    priority: Optional[int] = Query(None, ge=1, le=5, description="Фильтр по приоритету")
 ):
-    """
-    Получение списка задач
-    
-    - **skip**: Количество задач для пропуска (для пагинации)
-    - **limit**: Максимальное количество задач
-    - **status**: Фильтр по статусу (опционально)
-    """
-    if status:
-        return task_db.get_tasks_by_status(status.value)
+    if status or tags or priority:
+        return task_db.get_tasks_filtered(status, tags, priority, skip, limit)
     return task_db.get_tasks(skip=skip, limit=limit)
+
+
+@app.get("/tasks/search/", response_model=List[Task], tags=["Tasks"])
+async def search_tasks(
+    query: str = Query(..., description="Поисковый запрос"),
+    limit: int = Query(50, ge=1, le=100, description="Максимальное количество результатов")
+):
+    return task_db.search_tasks(query, limit)
 
 
 @app.get("/tasks/{task_id}", response_model=Task, tags=["Tasks"])
@@ -111,6 +114,11 @@ async def get_tasks_by_status(status: TaskStatus):
     - **status**: Статус для фильтрации
     """
     return task_db.get_tasks_by_status(status.value)
+
+
+@app.get("/tasks/stats/", tags=["Tasks"])
+async def get_tasks_stats():
+    return task_db.get_tasks_stats()
 
 
 @app.get("/health", tags=["Health"])
