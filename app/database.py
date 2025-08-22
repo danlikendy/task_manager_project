@@ -1,6 +1,8 @@
 from typing import Dict, List, Optional
 from uuid import UUID
+from datetime import datetime
 from app.models import Task, TaskCreate, TaskUpdate
+from app.models import TaskStatus
 
 
 class TaskDatabase:
@@ -19,9 +21,10 @@ class TaskDatabase:
         """Получение задачи по ID"""
         return self.tasks.get(task_id)
     
-    def get_tasks(self, skip: int = 0, limit: int = 100) -> List[Task]:
+    def get_tasks(self, skip: int = 0, limit: int = 100, sort_by: str = "created_at", order: str = "desc") -> List[Task]:
         """Получение списка задач с пагинацией"""
         tasks = list(self.tasks.values())
+        tasks = self._sort_tasks(tasks, sort_by, order)
         return tasks[skip:skip + limit]
     
     def update_task(self, task_id: UUID, task_data: TaskUpdate) -> Optional[Task]:
@@ -35,6 +38,7 @@ class TaskDatabase:
         for field, value in update_data.items():
             setattr(task, field, value)
         
+        task.updated_at = datetime.now()
         return task
     
     def delete_task(self, task_id: UUID) -> bool:
@@ -44,7 +48,7 @@ class TaskDatabase:
             return True
         return False
     
-    def get_tasks_filtered(self, status: Optional[str], tags: Optional[List[str]], priority: Optional[int], skip: int = 0, limit: int = 100) -> List[Task]:
+    def get_tasks_filtered(self, status: Optional[str], tags: Optional[List[str]], priority: Optional[int], skip: int = 0, limit: int = 100, sort_by: str = "created_at", order: str = "desc") -> List[Task]:
         filtered_tasks = []
         
         for task in self.tasks.values():
@@ -63,6 +67,7 @@ class TaskDatabase:
             filtered_tasks.append(task)
         
         # Применяем пагинацию
+        filtered_tasks = self._sort_tasks(filtered_tasks, sort_by, order)
         return filtered_tasks[skip:skip + limit]
     
     def get_tasks_by_status(self, status: str) -> List[Task]:
@@ -108,6 +113,47 @@ class TaskDatabase:
             "priority_distribution": priority_counts,
             "popular_tags": dict(sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)[:10])
         }
+    
+    def _sort_tasks(self, tasks: List[Task], sort_by: str, order: str) -> List[Task]:
+        reverse = order.lower() == "desc"
+        
+        if sort_by == "title":
+            return sorted(tasks, key=lambda x: x.title.lower(), reverse=reverse)
+        elif sort_by == "status":
+            return sorted(tasks, key=lambda x: x.status.value, reverse=reverse)
+        elif sort_by == "priority":
+            return sorted(tasks, key=lambda x: x.priority.value, reverse=reverse)
+        elif sort_by == "created_at":
+            return sorted(tasks, key=lambda x: x.created_at, reverse=reverse)
+        else:
+            return sorted(tasks, key=lambda x: x.created_at, reverse=reverse)
+    
+    def bulk_update_status(self, task_ids: List[UUID], status: TaskStatus) -> int:
+        updated_count = 0
+        for task_id in task_ids:
+            if task_id in self.tasks:
+                self.tasks[task_id].status = status
+                self.tasks[task_id].updated_at = datetime.now()
+                updated_count += 1
+        return updated_count
+    
+    def bulk_delete_tasks(self, task_ids: List[UUID]) -> int:
+        deleted_count = 0
+        for task_id in task_ids:
+            if task_id in self.tasks:
+                del self.tasks[task_id]
+                deleted_count += 1
+        return deleted_count
+    
+    def get_tasks_by_date_range(self, start_date: datetime, end_date: datetime, skip: int = 0, limit: int = 100) -> List[Task]:
+        filtered_tasks = []
+        
+        for task in self.tasks.values():
+            if start_date <= task.created_at <= end_date:
+                filtered_tasks.append(task)
+        
+        filtered_tasks = self._sort_tasks(filtered_tasks, "created_at", "desc")
+        return filtered_tasks[skip:skip + limit]
 
 
 # Глобальный экземпляр базы данных

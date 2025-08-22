@@ -2,6 +2,7 @@ from typing import List, Optional
 from uuid import UUID
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 
 from app.models import Task, TaskCreate, TaskUpdate, TaskStatus
 from app.database import task_db
@@ -53,11 +54,13 @@ async def get_tasks(
     limit: int = Query(100, ge=1, le=1000, description="Максимальное количество задач"),
     status: Optional[TaskStatus] = Query(None, description="Фильтр по статусу"),
     tags: Optional[List[str]] = Query(None, description="Фильтр по тегам"),
-    priority: Optional[int] = Query(None, ge=1, le=5, description="Фильтр по приоритету")
+    priority: Optional[int] = Query(None, ge=1, le=5, description="Фильтр по приоритету"),
+    sort_by: str = Query("created_at", description="Поле для сортировки (title, status, priority, created_at)"),
+    order: str = Query("desc", description="Порядок сортировки (asc, desc)")
 ):
     if status or tags or priority:
-        return task_db.get_tasks_filtered(status, tags, priority, skip, limit)
-    return task_db.get_tasks(skip=skip, limit=limit)
+        return task_db.get_tasks_filtered(status, tags, priority, skip, limit, sort_by, order)
+    return task_db.get_tasks(skip=skip, limit=limit, sort_by=sort_by, order=order)
 
 
 @app.get("/tasks/search/", response_model=List[Task], tags=["Tasks"])
@@ -119,6 +122,68 @@ async def get_tasks_by_status(status: TaskStatus):
 @app.get("/tasks/stats/", tags=["Tasks"])
 async def get_tasks_stats():
     return task_db.get_tasks_stats()
+
+
+@app.post("/tasks/bulk/status", tags=["Tasks"])
+async def bulk_update_status(
+    task_ids: List[UUID],
+    status: TaskStatus
+):
+    updated_count = task_db.bulk_update_status(task_ids, status)
+    return {
+        "message": f"Обновлено {updated_count} задач",
+        "updated_count": updated_count,
+        "total_requested": len(task_ids)
+    }
+
+
+@app.delete("/tasks/bulk/", tags=["Tasks"])
+async def bulk_delete_tasks(task_ids: List[UUID]):
+    deleted_count = task_db.bulk_delete_tasks(task_ids)
+    return {
+        "message": f"Удалено {deleted_count} задач",
+        "deleted_count": deleted_count,
+        "total_requested": len(task_ids)
+    }
+
+
+@app.get("/tasks/export/csv", tags=["Tasks"])
+async def export_tasks_csv():
+    tasks = task_db.get_tasks(limit=1000)
+    
+    if not tasks:
+        return PlainTextResponse("Нет задач для экспорта")
+    
+    csv_content = "ID,Название,Описание,Статус,Приоритет,Теги,Создано,Обновлено\n"
+    
+    for task in tasks:
+        tags_str = ";".join(task.tags) if task.tags else ""
+        created_at = task.created_at.strftime("%Y-%m-%d %H:%M:%S") if task.created_at else ""
+        updated_at = task.updated_at.strftime("%Y-%m-%d %H:%M:%S") if task.updated_at else ""
+        
+        csv_content += f'"{task.id}","{task.title}","{task.description or ""}","{task.status.value}","{task.priority.value}","{tags_str}","{created_at}","{updated_at}"\n'
+    
+    return PlainTextResponse(
+        content=csv_content,
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=tasks.csv"}
+    )
+
+
+@app.get("/tasks/by-date", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_date_range(
+    start_date: str = Query(..., description="Начальная дата (YYYY-MM-DD)"),
+    end_date: str = Query(..., description="Конечная дата (YYYY-MM-DD)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    try:
+        from datetime import datetime
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        end = datetime.strptime(end_date, "%Y-%m-%d")
+        return task_db.get_tasks_by_date_range(start, end, skip, limit)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Неверный формат даты. Используйте YYYY-MM-DD")
 
 
 @app.get("/health", tags=["Health"])
