@@ -6,16 +6,22 @@ from app.database import task_db
 
 @pytest.fixture
 def client():
-    """Фикстура для тестового клиента FastAPI"""
     return TestClient(app)
 
 
 @pytest.fixture
 def clean_db():
-    """Фикстура для очистки базы данных перед каждым тестом"""
     task_db.tasks.clear()
     yield
     task_db.tasks.clear()
+
+
+@pytest.fixture
+def auth_headers(client):
+    """Фикстура для получения заголовков аутентификации"""
+    response = client.post("/token", data={"username": "admin", "password": "secret"})
+    token = response.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
 
 
 @pytest.fixture
