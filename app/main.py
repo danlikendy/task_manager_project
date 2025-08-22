@@ -1,6 +1,6 @@
 from typing import List, Optional
 from uuid import UUID
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Path
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 
@@ -184,6 +184,165 @@ async def get_tasks_by_date_range(
         return task_db.get_tasks_by_date_range(start, end, skip, limit)
     except ValueError:
         raise HTTPException(status_code=400, detail="Неверный формат даты. Используйте YYYY-MM-DD")
+
+
+@app.get("/tasks/overdue", response_model=List[Task], tags=["Tasks"])
+async def get_overdue_tasks():
+    """Получение просроченных задач"""
+    return task_db.get_overdue_tasks()
+
+
+@app.get("/tasks/due-soon", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_due_soon(
+    days: int = Query(7, ge=1, le=30, description="Количество дней для проверки")
+):
+    """Получение задач с приближающимся сроком"""
+    return task_db.get_tasks_due_soon(days)
+
+
+@app.post("/tasks/update-overdue", tags=["Tasks"])
+async def update_overdue_status():
+    """Обновление статуса просроченных задач"""
+    updated_count = task_db.update_overdue_status()
+    return {
+        "message": f"Обновлено {updated_count} просроченных задач",
+        "updated_count": updated_count
+    }
+
+
+@app.get("/tasks/priority/{priority}", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_priority(
+    priority: int = Path(..., ge=1, le=5, description="Приоритет задачи"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по приоритету"""
+    return task_db.get_tasks_filtered(None, None, priority, skip, limit)
+
+
+@app.get("/tasks/priority-range", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_priority_range(
+    min_priority: int = Query(..., ge=1, le=5, description="Минимальный приоритет"),
+    max_priority: int = Query(..., ge=1, le=5, description="Максимальный приоритет"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по диапазону приоритетов"""
+    if min_priority > max_priority:
+        raise HTTPException(status_code=400, detail="Минимальный приоритет не может быть больше максимального")
+    
+    tasks = []
+    for task in task_db.get_tasks(limit=1000):
+        if min_priority <= task.priority.value <= max_priority:
+            tasks.append(task)
+            if len(tasks) >= limit:
+                break
+    
+    return tasks[skip:skip + limit]
+
+
+@app.get("/tasks/tags/{tags}", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_tags(
+    tags: str = Path(..., description="Теги для фильтрации (разделенные запятой)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по тегам"""
+    tag_list = [tag.strip() for tag in tags.split(",") if tag.strip()]
+    return task_db.get_tasks_filtered(None, tag_list, None, skip, limit)
+
+
+@app.get("/tasks/created-between", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_created_between(
+    start_date: str = Query(..., description="Начальная дата (YYYY-MM-DD)"),
+    end_date: str = Query(..., description="Конечная дата (YYYY-MM-DD)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по диапазону дат создания"""
+    try:
+        from datetime import datetime
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        end = datetime.strptime(end_date, "%Y-%m-%d")
+        return task_db.get_tasks_by_date_range(start, end, skip, limit)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Неверный формат даты. Используйте YYYY-MM-DD")
+
+
+@app.get("/tasks/due-between", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_due_between(
+    start_date: str = Query(..., description="Начальная дата (YYYY-MM-DD)"),
+    end_date: str = Query(..., description="Конечная дата (YYYY-MM-DD)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по диапазону дат выполнения"""
+    try:
+        from datetime import datetime, date
+        start = date.fromisoformat(start_date)
+        end = date.fromisoformat(end_date)
+        
+        if start > end:
+            raise HTTPException(status_code=400, detail="Начальная дата не может быть позже конечной")
+        
+        tasks = []
+        for task in task_db.get_tasks(limit=1000):
+            if task.due_date and start <= task.due_date <= end:
+                tasks.append(task)
+                if len(tasks) >= limit:
+                    break
+        
+        return tasks[skip:skip + limit]
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Неверный формат даты. Используйте YYYY-MM-DD")
+
+
+@app.get("/tasks/status-priority", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_status_and_priority(
+    status: TaskStatus = Query(..., description="Статус задачи"),
+    priority: int = Query(..., ge=1, le=5, description="Приоритет задачи"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по статусу и приоритету"""
+    return task_db.get_tasks_filtered(status, None, priority, skip, limit)
+
+
+@app.get("/tasks/status-tags", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_status_and_tags(
+    status: TaskStatus = Query(..., description="Статус задачи"),
+    tags: str = Query(..., description="Теги для фильтрации (разделенные запятой)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по статусу и тегам"""
+    tag_list = [tag.strip() for tag in tags.split(",") if tag.strip()]
+    return task_db.get_tasks_filtered(status, tag_list, None, skip, limit)
+
+
+@app.get("/tasks/priority-tags", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_priority_and_tags(
+    priority: int = Query(..., ge=1, le=5, description="Приоритет задачи"),
+    tags: str = Query(..., description="Теги для фильтрации (разделенные запятой)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по приоритету и тегам"""
+    tag_list = [tag.strip() for tag in tags.split(",") if tag.strip()]
+    return task_db.get_tasks_filtered(None, tag_list, priority, skip, limit)
+
+
+@app.get("/tasks/status-priority-tags", response_model=List[Task], tags=["Tasks"])
+async def get_tasks_by_status_priority_and_tags(
+    status: TaskStatus = Query(..., description="Статус задачи"),
+    priority: int = Query(..., ge=1, le=5, description="Приоритет задачи"),
+    tags: str = Query(..., description="Теги для фильтрации (разделенные запятой)"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000)
+):
+    """Получение задач по статусу, приоритету и тегам"""
+    tag_list = [tag.strip() for tag in tags.split(",") if tag.strip()]
+    return task_db.get_tasks_filtered(status, tag_list, priority, skip, limit)
 
 
 @app.get("/health", tags=["Health"])

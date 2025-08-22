@@ -1,8 +1,7 @@
 from typing import Dict, List, Optional
 from uuid import UUID
-from datetime import datetime
-from app.models import Task, TaskCreate, TaskUpdate
-from app.models import TaskStatus
+from datetime import datetime, date
+from app.models import Task, TaskCreate, TaskUpdate, TaskStatus
 
 
 class TaskDatabase:
@@ -125,6 +124,8 @@ class TaskDatabase:
             return sorted(tasks, key=lambda x: x.priority.value, reverse=reverse)
         elif sort_by == "created_at":
             return sorted(tasks, key=lambda x: x.created_at, reverse=reverse)
+        elif sort_by == "due_date":
+            return sorted(tasks, key=lambda x: x.due_date or date.max, reverse=reverse)
         else:
             return sorted(tasks, key=lambda x: x.created_at, reverse=reverse)
     
@@ -154,6 +155,45 @@ class TaskDatabase:
         
         filtered_tasks = self._sort_tasks(filtered_tasks, "created_at", "desc")
         return filtered_tasks[skip:skip + limit]
+    
+    def get_overdue_tasks(self) -> List[Task]:
+        today = date.today()
+        overdue_tasks = []
+        
+        for task in self.tasks.values():
+            if (task.due_date and 
+                task.due_date < today and 
+                task.status != TaskStatus.COMPLETED):
+                overdue_tasks.append(task)
+        
+        return sorted(overdue_tasks, key=lambda x: x.due_date)
+    
+    def update_overdue_status(self) -> int:
+        today = date.today()
+        updated_count = 0
+        
+        for task in self.tasks.values():
+            if (task.due_date and 
+                task.due_date < today and 
+                task.status != TaskStatus.COMPLETED):
+                task.status = TaskStatus.OVERDUE
+                task.updated_at = datetime.now()
+                updated_count += 1
+        
+        return updated_count
+    
+    def get_tasks_due_soon(self, days: int = 7) -> List[Task]:
+        today = date.today()
+        due_soon = []
+        
+        for task in self.tasks.values():
+            if (task.due_date and 
+                task.status != TaskStatus.COMPLETED and
+                task.due_date >= today and
+                (task.due_date - today).days <= days):
+                due_soon.append(task)
+        
+        return sorted(due_soon, key=lambda x: x.due_date)
 
 
 # Глобальный экземпляр базы данных
