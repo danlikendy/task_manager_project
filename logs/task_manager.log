@@ -1,0 +1,337 @@
+2025-08-23 07:32:39,979 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:32:39,980 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:39.980339'}
+2025-08-23 07:32:39,985 - task_manager - INFO - Metrics requested: {'total_tasks': 0, 'completed_tasks': 0, 'overdue_tasks': 0, 'today_tasks': 0, 'week_tasks': 0, 'completion_rate': 0, 'overdue_rate': 0, 'timestamp': '2025-08-23T03:32:39.985343'}
+2025-08-23 07:32:39,986 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/metrics', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:39.986344'}
+2025-08-23 07:32:40,021 - task_manager - INFO - Detailed health check performed
+2025-08-23 07:32:40,022 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/health/detailed', 'status_code': 200, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.021376'}
+2025-08-23 07:32:40,250 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:32:40,251 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.222s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.251585'}
+2025-08-23 07:32:40,256 - task_manager - INFO - Tasks retrieved by user admin: 0 tasks
+2025-08-23 07:32:40,257 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.257590'}
+2025-08-23 07:32:40,263 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /admin', 'timestamp': '2025-08-23T03:32:40.263595'}
+2025-08-23 07:32:40,263 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/admin', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.263595'}
+2025-08-23 07:32:40,267 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /config', 'timestamp': '2025-08-23T03:32:40.267599'}
+2025-08-23 07:32:40,268 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/config', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.268601'}
+2025-08-23 07:32:40,273 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /.env', 'timestamp': '2025-08-23T03:32:40.273605'}
+2025-08-23 07:32:40,273 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/.env', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.273605'}
+2025-08-23 07:32:40,277 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /wp-admin', 'timestamp': '2025-08-23T03:32:40.277609'}
+2025-08-23 07:32:40,278 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/wp-admin', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.278609'}
+2025-08-23 07:32:40,510 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:32:40,510 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.226s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.510821'}
+2025-08-23 07:32:40,516 - task_manager - INFO - Tasks retrieved by user admin: 0 tasks
+2025-08-23 07:32:40,516 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:32:40.516826'}
+2025-08-23 07:34:41,141 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:41.141813'}
+2025-08-23 07:34:41,148 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/health', 'status_code': 200, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:41.148819'}
+2025-08-23 07:34:41,394 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:41,395 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.237s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:41.395044'}
+2025-08-23 07:34:41,585 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.186s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:41.585469'}
+2025-08-23 07:34:41,823 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:41,824 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.232s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:41.824698'}
+2025-08-23 07:34:41,832 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:41.832704'}
+2025-08-23 07:34:42,066 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:42,067 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.228s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.067919'}
+2025-08-23 07:34:42,074 - task_manager - WARNING - Request failed: {'method': 'POST', 'path': '/tasks/', 'status_code': 422, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.074927'}
+2025-08-23 07:34:42,325 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:42,325 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.243s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.325063'}
+2025-08-23 07:34:42,332 - task_manager - INFO - Tasks retrieved by user admin: 0 tasks
+2025-08-23 07:34:42,332 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.332068'}
+2025-08-23 07:34:42,569 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:42,570 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.231s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.570284'}
+2025-08-23 07:34:42,581 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.581294'}
+2025-08-23 07:34:42,589 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.589301'}
+2025-08-23 07:34:42,595 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:34:42,595 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.595308'}
+2025-08-23 07:34:42,831 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:42,832 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.832532'}
+2025-08-23 07:34:42,842 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.842542'}
+2025-08-23 07:34:42,849 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.849548'}
+2025-08-23 07:34:42,857 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.857555'}
+2025-08-23 07:34:42,863 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.863559'}
+2025-08-23 07:34:42,871 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.871571'}
+2025-08-23 07:34:42,876 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:34:42,876 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:42.876572'}
+2025-08-23 07:34:43,114 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:43,115 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.233s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.115791'}
+2025-08-23 07:34:43,123 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.123796'}
+2025-08-23 07:34:43,129 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.129802'}
+2025-08-23 07:34:43,137 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.137809'}
+2025-08-23 07:34:43,142 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:34:43,142 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.142813'}
+2025-08-23 07:34:43,382 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:43,382 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.232s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.382030'}
+2025-08-23 07:34:43,391 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.391039'}
+2025-08-23 07:34:43,396 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/50afcd8c-e19b-40c2-9eda-f56cd9558cd2', 'status_code': 200, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.396044'}
+2025-08-23 07:34:43,636 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:43,637 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.235s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.637781'}
+2025-08-23 07:34:43,644 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/tasks/cfa0ca50-f146-4c04-91e5-69a8d751ea30', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.644787'}
+2025-08-23 07:34:43,879 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:43,880 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.228s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.880006'}
+2025-08-23 07:34:43,889 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.889014'}
+2025-08-23 07:34:43,895 - task_manager - INFO - Request completed: {'method': 'PUT', 'path': '/tasks/2f25b352-533d-4e02-be62-573a947291a3', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:43.895021'}
+2025-08-23 07:34:44,135 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:44,136 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.234s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.136239'}
+2025-08-23 07:34:44,142 - task_manager - WARNING - Request failed: {'method': 'PUT', 'path': '/tasks/dae94917-f73f-42f4-a16b-a4b9bbe3e35a', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.142244'}
+2025-08-23 07:34:44,377 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:44,378 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.378090'}
+2025-08-23 07:34:44,387 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.004s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.387098'}
+2025-08-23 07:34:44,396 - task_manager - INFO - Request completed: {'method': 'DELETE', 'path': '/tasks/9ce372d8-ee49-44b1-b770-3996a1ab5ef2', 'status_code': 204, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.396109'}
+2025-08-23 07:34:44,403 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/tasks/9ce372d8-ee49-44b1-b770-3996a1ab5ef2', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.403113'}
+2025-08-23 07:34:44,639 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:44,639 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.639231'}
+2025-08-23 07:34:44,645 - task_manager - WARNING - Request failed: {'method': 'DELETE', 'path': '/tasks/7c19ed6e-0a1d-4955-9136-2304974b6cce', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.645236'}
+2025-08-23 07:34:44,882 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:44,884 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.883456'}
+2025-08-23 07:34:44,892 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.892461'}
+2025-08-23 07:34:44,899 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:44.899466'}
+2025-08-23 07:34:45,143 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:45,144 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.231s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.144197'}
+2025-08-23 07:34:45,153 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.153205'}
+2025-08-23 07:34:45,160 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.160211'}
+2025-08-23 07:34:45,168 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.168219'}
+2025-08-23 07:34:45,174 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/search/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.174224'}
+2025-08-23 07:34:45,410 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:45,410 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.410214'}
+2025-08-23 07:34:45,419 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.004s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.419227'}
+2025-08-23 07:34:45,426 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.426237'}
+2025-08-23 07:34:45,434 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.434246'}
+2025-08-23 07:34:45,441 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:34:45,441 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.441251'}
+2025-08-23 07:34:45,446 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:34:45,447 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.447260'}
+2025-08-23 07:34:45,684 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:45,685 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.227s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.685249'}
+2025-08-23 07:34:45,693 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.693255'}
+2025-08-23 07:34:45,700 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.700263'}
+2025-08-23 07:34:45,706 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/stats/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.706267'}
+2025-08-23 07:34:45,943 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:45,943 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:45.943500'}
+2025-08-23 07:34:46,185 - task_manager - WARNING - Security event: {'event_type': 'failed_login', 'user': 'admin', 'details': 'IP: testclient', 'timestamp': '2025-08-23T03:34:46.185766'}
+2025-08-23 07:34:46,186 - task_manager - WARNING - Request failed: {'method': 'POST', 'path': '/token', 'status_code': 400, 'duration': '0.234s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.186767'}
+2025-08-23 07:34:46,426 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:46,426 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.234s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.426509'}
+2025-08-23 07:34:46,431 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/users/me', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.431515'}
+2025-08-23 07:34:46,440 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/users/me', 'status_code': 403, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.439523'}
+2025-08-23 07:34:46,447 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/users/me', 'status_code': 401, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.446527'}
+2025-08-23 07:34:46,711 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:46,711 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.234s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.711790'}
+2025-08-23 07:34:46,716 - task_manager - INFO - Metrics requested: {'total_tasks': 0, 'completed_tasks': 0, 'overdue_tasks': 0, 'today_tasks': 0, 'week_tasks': 0, 'completion_rate': 0, 'overdue_rate': 0, 'timestamp': '2025-08-23T03:34:46.716794'}
+2025-08-23 07:34:46,717 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/metrics', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.717796'}
+2025-08-23 07:34:46,724 - task_manager - INFO - Detailed health check performed
+2025-08-23 07:34:46,725 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/health/detailed', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.725803'}
+2025-08-23 07:34:46,959 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:46,959 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.229s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.959403'}
+2025-08-23 07:34:46,965 - task_manager - INFO - Tasks retrieved by user admin: 0 tasks
+2025-08-23 07:34:46,965 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.965409'}
+2025-08-23 07:34:46,973 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /admin', 'timestamp': '2025-08-23T03:34:46.973417'}
+2025-08-23 07:34:46,974 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/admin', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.974416'}
+2025-08-23 07:34:46,978 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /config', 'timestamp': '2025-08-23T03:34:46.978421'}
+2025-08-23 07:34:46,979 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/config', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.979421'}
+2025-08-23 07:34:46,982 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /.env', 'timestamp': '2025-08-23T03:34:46.982423'}
+2025-08-23 07:34:46,983 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/.env', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.983424'}
+2025-08-23 07:34:46,988 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /wp-admin', 'timestamp': '2025-08-23T03:34:46.988429'}
+2025-08-23 07:34:46,988 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/wp-admin', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:46.988429'}
+2025-08-23 07:34:47,224 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:34:47,225 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:47.225858'}
+2025-08-23 07:34:47,230 - task_manager - INFO - Tasks retrieved by user admin: 0 tasks
+2025-08-23 07:34:47,230 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:34:47.230864'}
+2025-08-23 07:39:03,766 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:39:03,766 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.229s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:03.766876'}
+2025-08-23 07:39:03,773 - task_manager - INFO - Cache stats requested by user admin
+2025-08-23 07:39:03,773 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/cache/stats', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:03.773882'}
+2025-08-23 07:39:04,001 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:39:04,002 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.222s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.002129'}
+2025-08-23 07:39:04,007 - task_manager - INFO - Cache cleared by user admin
+2025-08-23 07:39:04,007 - task_manager - INFO - Request completed: {'method': 'DELETE', 'path': '/cache/clear', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.007134'}
+2025-08-23 07:39:04,236 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:39:04,236 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.224s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.236732'}
+2025-08-23 07:39:04,241 - task_manager - INFO - Cache cleanup performed by user admin: 0 entries removed
+2025-08-23 07:39:04,242 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/cache/cleanup', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.242738'}
+2025-08-23 07:39:04,471 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:39:04,472 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.224s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.472946'}
+2025-08-23 07:39:04,478 - task_manager - INFO - Task created by user admin: Test task for cache
+2025-08-23 07:39:04,478 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.478952'}
+2025-08-23 07:39:04,483 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:39:04,484 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.484957'}
+2025-08-23 07:39:04,489 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:39:04,490 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.490316'}
+2025-08-23 07:39:04,719 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:39:04,719 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.223s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.719538'}
+2025-08-23 07:39:04,725 - task_manager - INFO - Task created by user admin: Task to update
+2025-08-23 07:39:04,725 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.725549'}
+2025-08-23 07:39:04,730 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:39:04,730 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.730553'}
+2025-08-23 07:39:04,737 - task_manager - INFO - Request completed: {'method': 'PUT', 'path': '/tasks/73a7fc98-7c95-4688-9d4f-7e11a473c925', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.737540'}
+2025-08-23 07:39:04,741 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:39:04,742 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:39:04.742544'}
+2025-08-23 07:45:33,923 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:45:33,924 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.237s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:33.924413'}
+2025-08-23 07:45:33,930 - task_manager - INFO - Cache stats requested by user admin
+2025-08-23 07:45:33,931 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/cache/stats', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:33.931420'}
+2025-08-23 07:45:34,162 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:45:34,163 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.226s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.163630'}
+2025-08-23 07:45:34,169 - task_manager - INFO - Cache cleared by user admin
+2025-08-23 07:45:34,170 - task_manager - INFO - Request completed: {'method': 'DELETE', 'path': '/cache/clear', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.170637'}
+2025-08-23 07:45:34,402 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:45:34,402 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.226s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.402847'}
+2025-08-23 07:45:34,408 - task_manager - INFO - Cache cleanup performed by user admin: 0 entries removed
+2025-08-23 07:45:34,408 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/cache/cleanup', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.408853'}
+2025-08-23 07:45:34,643 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:45:34,643 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.226s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.643065'}
+2025-08-23 07:45:34,654 - task_manager - INFO - Task created by user admin: Test task for cache
+2025-08-23 07:45:34,655 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.655078'}
+2025-08-23 07:45:34,690 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:45:34,690 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.690109'}
+2025-08-23 07:45:34,695 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:45:34,695 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.695113'}
+2025-08-23 07:45:34,931 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:45:34,932 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.228s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.932329'}
+2025-08-23 07:45:34,938 - task_manager - INFO - Task created by user admin: Task to update
+2025-08-23 07:45:34,939 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.939335'}
+2025-08-23 07:45:34,943 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:45:34,944 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.944339'}
+2025-08-23 07:45:34,950 - task_manager - INFO - Request completed: {'method': 'PUT', 'path': '/tasks/502b066a-8132-4bf7-ba9d-20d27c11d080', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.950345'}
+2025-08-23 07:45:34,955 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:45:34,956 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:45:34.956350'}
+2025-08-23 07:48:19,298 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:19.298618'}
+2025-08-23 07:48:19,306 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/health', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:19.306625'}
+2025-08-23 07:48:19,546 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:19,547 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.235s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:19.547844'}
+2025-08-23 07:48:19,561 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.009s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:19.561857'}
+2025-08-23 07:48:19,823 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:19,824 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.255s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:19.824095'}
+2025-08-23 07:48:19,833 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.004s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:19.833103'}
+2025-08-23 07:48:20,069 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:20,070 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.070320'}
+2025-08-23 07:48:20,076 - task_manager - WARNING - Request failed: {'method': 'POST', 'path': '/tasks/', 'status_code': 422, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.076325'}
+2025-08-23 07:48:20,310 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:20,311 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.229s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.311514'}
+2025-08-23 07:48:20,317 - task_manager - INFO - Tasks retrieved by user admin: 0 tasks
+2025-08-23 07:48:20,318 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.318520'}
+2025-08-23 07:48:20,552 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:20,553 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.229s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.553342'}
+2025-08-23 07:48:20,561 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.561349'}
+2025-08-23 07:48:20,569 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.569357'}
+2025-08-23 07:48:20,574 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:20,574 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.574703'}
+2025-08-23 07:48:20,805 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:20,806 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.225s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.806328'}
+2025-08-23 07:48:20,814 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.814336'}
+2025-08-23 07:48:20,822 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.822344'}
+2025-08-23 07:48:20,829 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.829349'}
+2025-08-23 07:48:20,838 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.004s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.838357'}
+2025-08-23 07:48:20,845 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.845364'}
+2025-08-23 07:48:20,850 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:20,851 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:20.851369'}
+2025-08-23 07:48:21,083 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:21,084 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.227s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.084581'}
+2025-08-23 07:48:21,092 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.092588'}
+2025-08-23 07:48:21,099 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.099595'}
+2025-08-23 07:48:21,106 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.106601'}
+2025-08-23 07:48:21,111 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:21,112 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.112606'}
+2025-08-23 07:48:21,343 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:21,343 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.223s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.343817'}
+2025-08-23 07:48:21,352 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.352826'}
+2025-08-23 07:48:21,357 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/6794de9e-9950-4c1e-aad4-c6c1e7a44995', 'status_code': 200, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.357829'}
+2025-08-23 07:48:21,592 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:21,592 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.227s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.592042'}
+2025-08-23 07:48:21,599 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/tasks/27bd1a4f-6498-4090-8da3-7bc911de2060', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.598047'}
+2025-08-23 07:48:21,831 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:21,831 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.225s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.831261'}
+2025-08-23 07:48:21,840 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.840267'}
+2025-08-23 07:48:21,845 - task_manager - INFO - Request completed: {'method': 'PUT', 'path': '/tasks/c607b717-42d8-47bb-a307-73ddf8c7ad25', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:21.845272'}
+2025-08-23 07:48:22,076 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:22,077 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.225s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.077488'}
+2025-08-23 07:48:22,086 - task_manager - WARNING - Request failed: {'method': 'PUT', 'path': '/tasks/c55d5b6a-0f28-4e61-a32d-048f2e1afd0b', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.086497'}
+2025-08-23 07:48:22,316 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:22,316 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.223s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.316581'}
+2025-08-23 07:48:22,325 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.325594'}
+2025-08-23 07:48:22,330 - task_manager - INFO - Request completed: {'method': 'DELETE', 'path': '/tasks/c91edb5a-c349-4456-a15e-32b39cc9d9cf', 'status_code': 204, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.330578'}
+2025-08-23 07:48:22,335 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/tasks/c91edb5a-c349-4456-a15e-32b39cc9d9cf', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.335582'}
+2025-08-23 07:48:22,569 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:22,570 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.228s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.570051'}
+2025-08-23 07:48:22,576 - task_manager - WARNING - Request failed: {'method': 'DELETE', 'path': '/tasks/61d2bf1e-60f9-48e3-baec-d7616f2cb0d7', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.576058'}
+2025-08-23 07:48:22,807 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:22,807 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.224s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.807266'}
+2025-08-23 07:48:22,816 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.816274'}
+2025-08-23 07:48:22,823 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:22.823280'}
+2025-08-23 07:48:23,066 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:23,067 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.229s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.067502'}
+2025-08-23 07:48:23,076 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.076512'}
+2025-08-23 07:48:23,085 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.085519'}
+2025-08-23 07:48:23,092 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.092525'}
+2025-08-23 07:48:23,097 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/search/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.097531'}
+2025-08-23 07:48:23,334 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:23,335 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.231s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.335746'}
+2025-08-23 07:48:23,343 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.343753'}
+2025-08-23 07:48:23,351 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.351761'}
+2025-08-23 07:48:23,358 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.358769'}
+2025-08-23 07:48:23,363 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:23,364 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.364774'}
+2025-08-23 07:48:23,370 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:48:23,370 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.370779'}
+2025-08-23 07:48:23,607 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:23,608 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.232s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.608995'}
+2025-08-23 07:48:23,618 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.618005'}
+2025-08-23 07:48:23,625 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.003s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.625010'}
+2025-08-23 07:48:23,630 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/stats/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.630015'}
+2025-08-23 07:48:23,864 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:23,864 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.226s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:23.864227'}
+2025-08-23 07:48:24,101 - task_manager - WARNING - Security event: {'event_type': 'failed_login', 'user': 'admin', 'details': 'IP: testclient', 'timestamp': '2025-08-23T03:48:24.101442'}
+2025-08-23 07:48:24,102 - task_manager - WARNING - Request failed: {'method': 'POST', 'path': '/token', 'status_code': 400, 'duration': '0.231s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:24.102443'}
+2025-08-23 07:48:24,338 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:24,339 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.230s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:24.339743'}
+2025-08-23 07:48:24,344 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/users/me', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:24.344748'}
+2025-08-23 07:48:24,352 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/users/me', 'status_code': 403, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:24.352755'}
+2025-08-23 07:48:24,359 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/users/me', 'status_code': 401, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:24.359762'}
+2025-08-23 07:48:27,929 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:27,930 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.227s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:27.930962'}
+2025-08-23 07:48:27,936 - task_manager - INFO - Cache stats requested by user admin
+2025-08-23 07:48:27,936 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/cache/stats', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:27.936968'}
+2025-08-23 07:48:28,172 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:28,172 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.227s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.172181'}
+2025-08-23 07:48:28,178 - task_manager - INFO - Cache cleared by user admin
+2025-08-23 07:48:28,178 - task_manager - INFO - Request completed: {'method': 'DELETE', 'path': '/cache/clear', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.178187'}
+2025-08-23 07:48:28,414 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:28,415 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.228s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.415402'}
+2025-08-23 07:48:28,421 - task_manager - INFO - Cache cleanup performed by user admin: 0 entries removed
+2025-08-23 07:48:28,421 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/cache/cleanup', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.421408'}
+2025-08-23 07:48:28,666 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:28,666 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.239s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.666629'}
+2025-08-23 07:48:28,672 - task_manager - INFO - Task created by user admin: Test task for cache
+2025-08-23 07:48:28,673 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.673636'}
+2025-08-23 07:48:28,679 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:48:28,680 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.680646'}
+2025-08-23 07:48:28,686 - task_manager - INFO - Tasks retrieved by user admin: 1 tasks
+2025-08-23 07:48:28,686 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.686649'}
+2025-08-23 07:48:28,918 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:28,918 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.226s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.918862'}
+2025-08-23 07:48:28,924 - task_manager - INFO - Task created by user admin: Task to update
+2025-08-23 07:48:28,925 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/tasks/', 'status_code': 201, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.925867'}
+2025-08-23 07:48:28,930 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:28,931 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.931017'}
+2025-08-23 07:48:28,936 - task_manager - INFO - Request completed: {'method': 'PUT', 'path': '/tasks/76c611ee-1ff2-4c00-9abc-51ef59eb8043', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.936022'}
+2025-08-23 07:48:28,941 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:28,942 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.002s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:28.942027'}
+2025-08-23 07:48:29,203 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:29,204 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.233s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.204413'}
+2025-08-23 07:48:29,209 - task_manager - INFO - Metrics requested: {'total_tasks': 2, 'completed_tasks': 0, 'overdue_tasks': 0, 'today_tasks': 2, 'week_tasks': 2, 'completion_rate': 0.0, 'overdue_rate': 0.0, 'timestamp': '2025-08-23T03:48:29.209421'}
+2025-08-23 07:48:29,210 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/metrics', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.210422'}
+2025-08-23 07:48:29,217 - task_manager - INFO - Detailed health check performed
+2025-08-23 07:48:29,218 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/health/detailed', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.218293'}
+2025-08-23 07:48:29,450 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:29,450 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.227s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.450990'}
+2025-08-23 07:48:29,456 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:29,456 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.456994'}
+2025-08-23 07:48:29,464 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /admin', 'timestamp': '2025-08-23T03:48:29.464001'}
+2025-08-23 07:48:29,465 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/admin', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.465002'}
+2025-08-23 07:48:29,472 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /config', 'timestamp': '2025-08-23T03:48:29.472008'}
+2025-08-23 07:48:29,472 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/config', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.472008'}
+2025-08-23 07:48:29,476 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /.env', 'timestamp': '2025-08-23T03:48:29.476012'}
+2025-08-23 07:48:29,477 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/.env', 'status_code': 404, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.477013'}
+2025-08-23 07:48:29,483 - task_manager - WARNING - Security event: {'event_type': 'suspicious_request', 'user': 'unknown', 'details': 'IP: testclient, User-Agent: testclient, Path: /wp-admin', 'timestamp': '2025-08-23T03:48:29.483019'}
+2025-08-23 07:48:29,483 - task_manager - WARNING - Request failed: {'method': 'GET', 'path': '/wp-admin', 'status_code': 404, 'duration': '0.000s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.483019'}
+2025-08-23 07:48:29,719 - task_manager - INFO - User admin logged in successfully from IP: testclient
+2025-08-23 07:48:29,719 - task_manager - INFO - Request completed: {'method': 'POST', 'path': '/token', 'status_code': 200, 'duration': '0.229s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.719232'}
+2025-08-23 07:48:29,725 - task_manager - INFO - Tasks retrieved by user admin: 2 tasks
+2025-08-23 07:48:29,726 - task_manager - INFO - Request completed: {'method': 'GET', 'path': '/tasks/', 'status_code': 200, 'duration': '0.001s', 'user': 'anonymous', 'timestamp': '2025-08-23T03:48:29.726238'}

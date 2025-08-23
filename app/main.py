@@ -1,6 +1,6 @@
 from typing import List, Optional
 from uuid import UUID
-from fastapi import FastAPI, HTTPException, Query, Path, Depends
+from fastapi import FastAPI, HTTPException, Query, Path, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from fastapi.security import OAuth2PasswordRequestForm
@@ -8,7 +8,12 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app.models import Task, TaskCreate, TaskUpdate, TaskStatus
 from app.database import task_db
 from app.auth import authenticate_user, create_access_token, get_current_active_user, fake_users_db, ACCESS_TOKEN_EXPIRE_MINUTES
+from app.logger import setup_logger, log_error, log_security_event
+from app.middleware import LoggingMiddleware, SecurityMiddleware, PerformanceMiddleware
+from app.cache import get_cache_stats, clear_cache, cleanup_expired_cache
 from datetime import timedelta
+
+logger = setup_logger()
 
 # Создание FastAPI приложения
 app = FastAPI(
@@ -28,6 +33,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Добавление middleware для логирования и безопасности
+app.add_middleware(LoggingMiddleware, logger=logger)
+app.add_middleware(SecurityMiddleware, logger=logger)
+app.add_middleware(PerformanceMiddleware, logger=logger)
+
 
 @app.get("/", tags=["Root"])
 async def root():
@@ -40,7 +50,7 @@ async def root():
 
 
 @app.post("/tasks/", response_model=Task, status_code=201, tags=["Tasks"])
-async def create_task(task: TaskCreate, current_user = Depends(get_current_active_user)):
+async def create_task(task: TaskCreate, current_user = Depends(get_current_active_user), request: Request = None):
     """
     Создание новой задачи
     
@@ -48,7 +58,13 @@ async def create_task(task: TaskCreate, current_user = Depends(get_current_activ
     - **description**: Описание задачи (опционально)
     - **status**: Статус задачи (по умолчанию: создано)
     """
-    return task_db.create_task(task)
+    try:
+        result = task_db.create_task(task)
+        logger.info(f"Task created by user {current_user.username}: {task.title}")
+        return result
+    except Exception as e:
+        log_error(logger, e, f"Creating task: {task.title}")
+        raise
 
 
 @app.get("/tasks/", response_model=List[Task], tags=["Tasks"])
@@ -62,9 +78,17 @@ async def get_tasks(
     order: str = Query("desc", description="Порядок сортировки (asc, desc)"),
     current_user = Depends(get_current_active_user)
 ):
-    if status or tags or priority:
-        return task_db.get_tasks_filtered(status, tags, priority, skip, limit, sort_by, order)
-    return task_db.get_tasks(skip=skip, limit=limit, sort_by=sort_by, order=order)
+    try:
+        if status or tags or priority:
+            result = task_db.get_tasks_filtered(status, tags, priority, skip, limit, sort_by, order)
+        else:
+            result = task_db.get_tasks(skip=skip, limit=limit, sort_by=sort_by, order=order)
+        
+        logger.info(f"Tasks retrieved by user {current_user.username}: {len(result)} tasks")
+        return result
+    except Exception as e:
+        log_error(logger, e, f"Retrieving tasks for user {current_user.username}")
+        raise
 
 
 @app.get("/tasks/search/", response_model=List[Task], tags=["Tasks"])
@@ -363,19 +387,31 @@ async def get_tasks_by_status_priority_and_tags(
 
 
 @app.post("/token", tags=["Authentication"])
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), request: Request = None):
     """Получение токена доступа"""
-    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=400,
-            detail="Incorrect username or password"
+    try:
+        user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+        if not user:
+            client_ip = request.client.host if request.client else "unknown"
+            log_security_event(logger, "failed_login", form_data.username, f"IP: {client_ip}")
+            raise HTTPException(
+                status_code=400,
+                detail="Incorrect username or password"
+            )
+        
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": user.username}, expires_delta=access_token_expires
         )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
+        
+        client_ip = request.client.host if request.client else "unknown"
+        logger.info(f"User {user.username} logged in successfully from IP: {client_ip}")
+        
+        return {"access_token": access_token, "token_type": "bearer"}
+    except Exception as e:
+        if not isinstance(e, HTTPException):
+            log_error(logger, e, f"Login attempt for user {form_data.username}")
+        raise
 
 
 @app.get("/users/me", tags=["Authentication"])
@@ -388,6 +424,109 @@ async def read_users_me(current_user = Depends(get_current_active_user)):
 async def health_check():
     """Проверка состояния API"""
     return {"status": "healthy"}
+
+
+@app.get("/metrics", tags=["Monitoring"])
+async def get_metrics():
+    """Получение метрик для мониторинга"""
+    try:
+        from datetime import datetime, timedelta
+        
+        total_tasks = len(task_db.tasks)
+        completed_tasks = len([t for t in task_db.tasks.values() if t.status.value == "завершено"])
+        overdue_tasks = len([t for t in task_db.tasks.values() if t.status.value == "просрочено"])
+        
+        now = datetime.utcnow()
+        today_tasks = len([t for t in task_db.tasks.values() 
+                          if t.created_at and t.created_at.date() == now.date()])
+        
+        week_ago = now - timedelta(days=7)
+        week_tasks = len([t for t in task_db.tasks.values() 
+                         if t.created_at and t.created_at >= week_ago])
+        
+        metrics = {
+            "total_tasks": total_tasks,
+            "completed_tasks": completed_tasks,
+            "overdue_tasks": overdue_tasks,
+            "today_tasks": today_tasks,
+            "week_tasks": week_tasks,
+            "completion_rate": (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0,
+            "overdue_rate": (overdue_tasks / total_tasks * 100) if total_tasks > 0 else 0,
+            "timestamp": now.isoformat()
+        }
+        
+        logger.info(f"Metrics requested: {metrics}")
+        return metrics
+        
+    except Exception as e:
+        log_error(logger, e, "Getting metrics")
+        raise HTTPException(status_code=500, detail="Error getting metrics")
+
+
+@app.get("/health/detailed", tags=["Health"])
+async def detailed_health_check():
+    """Детальная проверка состояния API"""
+    try:
+        from datetime import datetime
+        
+        health_status = {
+            "status": "healthy",
+            "timestamp": datetime.utcnow().isoformat(),
+            "database": "connected",
+            "total_tasks": len(task_db.tasks),
+            "memory_usage": "normal",
+            "uptime": "running"
+        }
+        
+        logger.info("Detailed health check performed")
+        return health_status
+        
+    except Exception as e:
+        log_error(logger, e, "Detailed health check")
+        return {
+            "status": "unhealthy",
+            "error": str(e),
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+
+@app.get("/cache/stats", tags=["Cache"])
+async def get_cache_statistics(current_user = Depends(get_current_active_user)):
+    """Получение статистики кэша"""
+    try:
+        stats = get_cache_stats()
+        logger.info(f"Cache stats requested by user {current_user.username}")
+        return stats
+    except Exception as e:
+        log_error(logger, e, "Getting cache stats")
+        raise HTTPException(status_code=500, detail="Error getting cache stats")
+
+
+@app.delete("/cache/clear", tags=["Cache"])
+async def clear_all_cache(current_user = Depends(get_current_active_user)):
+    """Очистка всего кэша"""
+    try:
+        clear_cache()
+        logger.info(f"Cache cleared by user {current_user.username}")
+        return {"message": "Cache cleared successfully"}
+    except Exception as e:
+        log_error(logger, e, "Clearing cache")
+        raise HTTPException(status_code=500, detail="Error clearing cache")
+
+
+@app.post("/cache/cleanup", tags=["Cache"])
+async def cleanup_cache(current_user = Depends(get_current_active_user)):
+    """Очистка истекших записей кэша"""
+    try:
+        cleaned_count = cleanup_expired_cache()
+        logger.info(f"Cache cleanup performed by user {current_user.username}: {cleaned_count} entries removed")
+        return {
+            "message": f"Cache cleanup completed",
+            "cleaned_entries": cleaned_count
+        }
+    except Exception as e:
+        log_error(logger, e, "Cache cleanup")
+        raise HTTPException(status_code=500, detail="Error cleaning up cache")
 
 
 if __name__ == "__main__":
