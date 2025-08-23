@@ -52,6 +52,12 @@ class TaskDatabase:
         invalidate_cache_pattern("task")
         invalidate_cache_pattern("stats")
         
+        # Trigger gamification event
+        if hasattr(self, 'gamification_service') and self.gamification_service:
+            self.gamification_service.check_achievements("admin", "task_created", 1)
+            # Add XP for creating task
+            self.gamification_service.add_xp("admin", 10)
+        
         return task
     
     def update_task(self, task_id: UUID, task_update: TaskUpdate) -> Optional[Task]:
@@ -59,6 +65,7 @@ class TaskDatabase:
             return None
         
         task = self.tasks[task_id]
+        old_status = task.status
         
         if task_update.title is not None:
             task.title = task_update.title
@@ -79,6 +86,17 @@ class TaskDatabase:
         invalidate_cache_pattern("tasks")
         invalidate_cache_pattern(f"task:{task_id}")
         invalidate_cache_pattern("stats")
+        
+        # Trigger gamification events
+        if task_update.status == TaskStatus.COMPLETED and old_status != TaskStatus.COMPLETED:
+            # Task completed - trigger achievement check
+            if hasattr(self, 'gamification_service') and self.gamification_service:
+                self.gamification_service.check_achievements("admin", "task_completed", 1)
+                # Add XP for completing task
+                xp_amount = 20
+                if task.priority.value >= 4:  # High priority
+                    xp_amount += 10
+                self.gamification_service.add_xp("admin", xp_amount)
         
         return task
     

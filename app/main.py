@@ -1,6 +1,7 @@
 from typing import List, Optional
 from uuid import UUID
-from fastapi import FastAPI, HTTPException, Query, Path, Depends, Request
+from fastapi import FastAPI, HTTPException, Query, Path, Depends, Request, Body
+from typing import Dict
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from fastapi.security import OAuth2PasswordRequestForm
@@ -11,7 +12,8 @@ from app.auth import authenticate_user, create_access_token, get_current_active_
 from app.logger import setup_logger, log_error, log_security_event
 from app.middleware import LoggingMiddleware, SecurityMiddleware, PerformanceMiddleware
 from app.cache import get_cache_stats, clear_cache, cleanup_expired_cache
-from datetime import timedelta
+from app.ai_assistant import ai_assistant
+from datetime import timedelta, date, datetime
 
 logger = setup_logger()
 
@@ -527,6 +529,324 @@ async def cleanup_cache(current_user = Depends(get_current_active_user)):
     except Exception as e:
         log_error(logger, e, "Cache cleanup")
         raise HTTPException(status_code=500, detail="Error cleaning up cache")
+
+
+@app.post("/ai/create-task", response_model=Task, tags=["AI Assistant"])
+async def ai_create_task(
+    text: str,
+    current_user = Depends(get_current_active_user)
+):
+    """Создание задачи с помощью AI на основе текста"""
+    try:
+        # Анализируем текст и создаем задачу
+        task_data = ai_assistant.analyze_text_and_create_task(text)
+        
+        # Сохраняем задачу
+        task = task_db.create_task(task_data)
+        
+        logger.info(f"AI создал задачу для пользователя {current_user.username}: {task.title}")
+        return task
+        
+    except Exception as e:
+        log_error(logger, e, f"AI task creation for user {current_user.username}")
+        raise HTTPException(status_code=500, detail="Error creating task with AI")
+
+
+@app.post("/ai/generate-subtasks", tags=["AI Assistant"])
+async def ai_generate_subtasks(
+    task_text: str,
+    current_user = Depends(get_current_active_user)
+):
+    """Генерация подзадач с помощью AI"""
+    try:
+        subtasks = ai_assistant.generate_subtasks(task_text)
+        
+        logger.info(f"AI сгенерировал {len(subtasks)} подзадач для пользователя {current_user.username}")
+        return {
+            "subtasks": subtasks,
+            "count": len(subtasks),
+            "original_task": task_text
+        }
+        
+    except Exception as e:
+        log_error(logger, e, f"AI subtask generation for user {current_user.username}")
+        raise HTTPException(status_code=500, detail="Error generating subtasks with AI")
+
+
+@app.get("/ai/insights", tags=["AI Assistant"])
+async def ai_get_insights(current_user = Depends(get_current_active_user)):
+    """Получение AI инсайтов о продуктивности"""
+    try:
+        # Получаем статистику пользователя
+        stats = task_db.get_tasks_stats()
+        
+        # Генерируем инсайты
+        insights = ai_assistant.get_productivity_insights(stats)
+        
+        logger.info(f"AI предоставил инсайты для пользователя {current_user.username}")
+        return {
+            "insights": insights,
+            "stats": stats,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        
+    except Exception as e:
+        log_error(logger, e, f"AI insights for user {current_user.username}")
+        raise HTTPException(status_code=500, detail="Error getting AI insights")
+
+
+@app.get("/ai/daily-plan", tags=["AI Assistant"])
+async def ai_get_daily_plan(current_user = Depends(get_current_active_user)):
+    """Получение AI плана на день"""
+    try:
+        # Получаем активные задачи пользователя
+        tasks = task_db.get_tasks(limit=50)
+        
+        # Конвертируем в словари для AI
+        tasks_data = []
+        for task in tasks:
+            if task.status not in [TaskStatus.COMPLETED]:
+                tasks_data.append({
+                    "title": task.title,
+                    "priority": task.priority.value,
+                    "status": task.status.value,
+                    "due_date": task.due_date.isoformat() if task.due_date else None
+                })
+        
+        # Генерируем план
+        daily_plan = ai_assistant.generate_daily_plan(tasks_data)
+        
+        # Получаем рекомендации по оптимизации
+        suggestions = ai_assistant.suggest_priority_optimization(tasks_data)
+        
+        logger.info(f"AI создал план дня для пользователя {current_user.username}")
+        return {
+            "daily_plan": daily_plan,
+            "suggestions": suggestions,
+            "total_tasks": len(tasks_data),
+            "date": date.today().isoformat()
+        }
+        
+    except Exception as e:
+        log_error(logger, e, f"AI daily plan for user {current_user.username}")
+        raise HTTPException(status_code=500, detail="Error creating daily plan with AI")
+
+
+@app.post("/ai/smart-reminder", tags=["AI Assistant"])
+async def ai_generate_smart_reminder(
+    task_id: UUID,
+    current_user = Depends(get_current_active_user)
+):
+    """Генерация умного напоминания для задачи"""
+    try:
+        # Получаем задачу
+        task = task_db.get_task(task_id)
+        if not task:
+            raise HTTPException(status_code=404, detail="Задача не найдена")
+        
+        # Подготавливаем данные для AI
+        task_data = {
+            "title": task.title,
+            "priority": task.priority.value,
+            "status": task.status.value,
+            "due_date": task.due_date.isoformat() if task.due_date else None
+        }
+        
+        # Генерируем умное напоминание
+        reminder_text = ai_assistant.get_smart_reminder_text(task_data)
+        
+        logger.info(f"AI создал напоминание для задачи {task_id} пользователя {current_user.username}")
+        return {
+            "reminder_text": reminder_text,
+            "task_title": task.title,
+            "priority": task.priority.value,
+            "created_at": datetime.utcnow().isoformat()
+        }
+        
+    except Exception as e:
+        log_error(logger, e, f"AI reminder generation for user {current_user.username}")
+        raise HTTPException(status_code=500, detail="Error generating smart reminder")
+
+
+@app.get("/ai/status", tags=["AI Assistant"])
+async def ai_get_status():
+    """Статус AI-ассистента"""
+    return {
+        "status": "active",
+        "version": "1.0.0",
+        "features": [
+            "smart_task_creation",
+            "subtask_generation",
+            "productivity_insights",
+            "daily_planning",
+            "smart_reminders",
+            "priority_optimization"
+        ],
+        "supported_languages": ["русский", "english"],
+        "last_updated": datetime.utcnow().isoformat()
+    }
+
+
+# Gamification Endpoints
+@app.get("/gamification/profile", tags=["Gamification"])
+async def get_gamification_profile(current_user: User = Depends(get_current_active_user)):
+    """Получение профиля геймификации пользователя"""
+    profile = gamification_service.get_user_profile(current_user.username)
+    return {
+        "user_id": current_user.username,
+        "level": profile["level"],
+        "xp": profile["xp"],
+        "coins": profile["coins"],
+        "achievements_count": len(profile["achievements"]),
+        "challenges_completed": len(profile["challenges_completed"]),
+        "rewards_purchased": len(profile["rewards_purchased"]),
+        "daily_streak": profile["daily_streak"],
+        "last_activity": profile["last_activity"].isoformat(),
+        "stats": profile["stats"]
+    }
+
+@app.get("/gamification/achievements", tags=["Gamification"])
+async def get_achievements(current_user: User = Depends(get_current_active_user)):
+    """Получение всех достижений пользователя"""
+    profile = gamification_service.get_user_profile(current_user.username)
+    user_achievements = []
+    
+    for achievement in gamification_service.achievements:
+        is_unlocked = achievement.id in profile["achievements"]
+        user_achievements.append({
+            "id": achievement.id,
+            "name": achievement.name,
+            "description": achievement.description,
+            "type": achievement.achievement_type.value,
+            "rarity": achievement.rarity,
+            "xp_reward": achievement.xp_reward,
+            "coin_reward": achievement.coin_reward,
+            "unlocked": is_unlocked,
+            "unlocked_at": achievement.unlocked_at.isoformat() if is_unlocked and achievement.unlocked_at else None,
+            "progress": profile["stats"].get(achievement.requirements.get("type", ""), 0),
+            "max_progress": achievement.max_progress
+        })
+    
+    return {"achievements": user_achievements}
+
+@app.get("/gamification/challenges", tags=["Gamification"])
+async def get_challenges(current_user: User = Depends(get_current_active_user)):
+    """Получение доступных вызовов"""
+    available_challenges = gamification_service.get_available_challenges(current_user.username)
+    challenges_data = []
+    
+    for challenge in available_challenges:
+        challenges_data.append({
+            "id": challenge.id,
+            "name": challenge.name,
+            "description": challenge.description,
+            "type": challenge.challenge_type.value,
+            "requirements": challenge.requirements,
+            "rewards": challenge.rewards,
+            "start_date": challenge.start_date.isoformat(),
+            "end_date": challenge.end_date.isoformat(),
+            "progress": challenge.progress,
+            "max_progress": challenge.max_progress
+        })
+    
+    return {"challenges": challenges_data}
+
+@app.get("/gamification/rewards", tags=["Gamification"])
+async def get_rewards(current_user: User = Depends(get_current_active_user)):
+    """Получение доступных наград"""
+    profile = gamification_service.get_user_profile(current_user.username)
+    rewards_data = []
+    
+    for reward in gamification_service.rewards:
+        is_purchased = reward.id in profile["rewards_purchased"]
+        rewards_data.append({
+            "id": reward.id,
+            "name": reward.name,
+            "description": reward.description,
+            "type": reward.reward_type.value,
+            "cost": reward.cost,
+            "effects": reward.effects,
+            "rarity": reward.rarity,
+            "purchased": is_purchased
+        })
+    
+    return {"rewards": rewards_data}
+
+@app.post("/gamification/purchase-reward/{reward_id}", tags=["Gamification"])
+async def purchase_reward(reward_id: str, current_user: User = Depends(get_current_active_user)):
+    """Покупка награды"""
+    result = gamification_service.purchase_reward(current_user.username, reward_id)
+    return result
+
+@app.get("/gamification/leaderboard", tags=["Gamification"])
+async def get_leaderboard(limit: int = Query(10, ge=1, le=50)):
+    """Получение таблицы лидеров"""
+    leaderboard = gamification_service.get_leaderboard(limit)
+    return {"leaderboard": leaderboard}
+
+@app.post("/gamification/complete-challenge/{challenge_id}", tags=["Gamification"])
+async def complete_challenge(challenge_id: str, current_user: User = Depends(get_current_active_user)):
+    """Завершение вызова"""
+    profile = gamification_service.get_user_profile(current_user.username)
+    
+    # Find challenge
+    challenge = next((c for c in gamification_service.challenges if c.id == challenge_id), None)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+    
+    # Check if already completed
+    if challenge_id in profile["challenges_completed"]:
+        raise HTTPException(status_code=400, detail="Challenge already completed")
+    
+    # Mark as completed
+    profile["challenges_completed"].append(challenge_id)
+    
+    # Add rewards
+    xp_gained = challenge.rewards.get("xp", 0)
+    coins_gained = challenge.rewards.get("coins", 0)
+    
+    level_up_info = gamification_service.add_xp(current_user.username, xp_gained)
+    profile["coins"] += coins_gained
+    
+    return {
+        "success": True,
+        "challenge_name": challenge.name,
+        "xp_gained": xp_gained,
+        "coins_gained": coins_gained,
+        "level_up_info": level_up_info
+    }
+
+@app.post("/gamification/trigger-event", tags=["Gamification"])
+async def trigger_gamification_event(
+    event_type: str = Body(..., description="Тип события"),
+    event_data: Dict = Body(..., description="Данные события"),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Триггер события геймификации"""
+    try:
+        # Проверяем достижения
+        unlocked_achievements = gamification_service.check_achievements(
+            current_user.username, 
+            event_type, 
+            event_data.get("value", 1)
+        )
+        
+        # Добавляем XP за событие
+        xp_gained = event_data.get("xp", 0)
+        level_up_info = None
+        if xp_gained > 0:
+            level_up_info = gamification_service.add_xp(current_user.username, xp_gained)
+        
+        return {
+            "event_processed": True,
+            "unlocked_achievements": unlocked_achievements,
+            "xp_gained": xp_gained,
+            "level_up_info": level_up_info
+        }
+        
+    except Exception as e:
+        log_error(logger, e, f"Gamification event for user {current_user.username}")
+        raise HTTPException(status_code=500, detail="Error processing gamification event")
 
 
 if __name__ == "__main__":
