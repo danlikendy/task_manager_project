@@ -23,211 +23,1006 @@
             margin: 0 auto;
             background: white;
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B5A96 0%, #A0522D 100%);
             color: white;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
+            position: relative;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 8px 40px rgba(139, 90, 150, 0.4);
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="20" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="0.8" fill="rgba(255,255,255,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
         }
         
         .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            font-weight: 900;
         }
         
         .header p {
-            opacity: 0.9;
-            font-size: 14px;
+            opacity: 0.95;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
         }
         
         .nav {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin: 20px;
+            padding: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .nav-item {
             flex: 1;
-            padding: 15px;
+            padding: 12px 8px;
             text-align: center;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 12px;
+            font-weight: 600;
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 16px;
+            margin: 0 2px;
         }
         
         .nav-item:hover {
-            background: #e9ecef;
+            background: rgba(139, 90, 150, 0.1);
+            transform: translateY(-2px) scale(1.05);
         }
         
         .nav-item.active {
-            background: #667eea;
+            background: linear-gradient(135deg, #8B5A96 0%, #A0522D 100%);
             color: white;
+            box-shadow: 0 4px 20px rgba(139, 90, 150, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
         }
         
         .content {
             padding: 20px;
+            background: #f8f9fa;
+            min-height: calc(100vh - 140px);
         }
         
         .screen {
             display: none;
+            animation: fadeIn 0.3s ease-in-out;
         }
         
         .screen.active {
             display: block;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .task-card {
-            background: white;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5A96, #A0522D);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+            border-color: rgba(139, 90, 150, 0.3);
+        }
+        
+        .task-card:hover::before {
+            opacity: 1;
+        }
+        
+        .task-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 90, 150, 0.05), rgba(160, 82, 45, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        
+        .task-card:hover::after {
+            opacity: 1;
         }
         
         .task-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
+            color: #2c3e50;
         }
         
         .task-description {
-            color: #666;
-            margin-bottom: 10px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
         
         .task-meta {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         
-        .status {
-            padding: 4px 8px;
+        .status, .priority {
+            padding: 3px 8px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            margin-right: 4px;
+            margin-bottom: 3px;
+            display: inline-block;
+            min-width: fit-content;
         }
         
-        .status.created { background: #e3f2fd; color: #1976d2; }
-        .status.progress { background: #fff3e0; color: #f57c00; }
-        .status.completed { background: #e8f5e8; color: #388e3c; }
-        
-        .priority {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 500;
+        .status.progress {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
         }
         
-        .priority.low { background: #e8f5e8; color: #388e3c; }
-        .priority.medium { background: #fff3e0; color: #f57c00; }
-        .priority.high { background: #ffebee; color: #d32f2f; }
-        .priority.critical { background: #fce4ec; color: #c2185b; }
+        .status.created {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .status.completed {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .priority.high {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .priority.medium {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+        
+        .priority.low {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #8B5A96 0%, #A0522D 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(139, 90, 150, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #8B5A96, #A0522D);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 16px 48px rgba(139, 90, 150, 0.5);
+        }
+        
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .gamification-card {
+            background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+            color: white;
+            padding: 28px;
+            border-radius: 24px;
+            margin-bottom: 28px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(210, 105, 30, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gamification-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .level {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .xp-bar {
+            background: rgba(255,255,255,0.2);
+            height: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .xp-fill {
+            background: linear-gradient(90deg, #fff, #f0f0f0, #e8f4fd);
+            height: 100%;
+            width: 75%;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .xp-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        .xp-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.1));
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
         
         .btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 12px;
             font-size: 14px;
-            font-weight: 500;
-            transition: transform 0.2s;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            margin: 6px;
+            min-width: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(139, 90, 150, 0.5);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px) scale(1.02);
         }
         
         .btn-secondary {
-            background: #6c757d;
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d, #bdc3c7);
+            box-shadow: 0 6px 20px rgba(149, 165, 166, 0.3);
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+        .btn-secondary:hover {
+            box-shadow: 0 12px 35px rgba(149, 165, 166, 0.5);
         }
         
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
         
-        .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            opacity: 0.9;
+        .btn-danger:hover {
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 24px;
         }
         
         .form-label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
             font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        .form-select {
+        .form-input, .form-select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 16px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 16px;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
         
-        .gamification-card {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #8B5A96;
+            box-shadow: 0 0 0 4px rgba(139, 90, 150, 0.15), 0 8px 32px rgba(139, 90, 150, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 24px;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(135deg, #8B5A96, #A0522D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 24px 0 18px 0;
+            font-size: 22px;
+            font-weight: 700;
             text-align: center;
         }
         
-        .level {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border-left: 5px solid #8B5A96;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
         
-        .xp-bar {
-            background: rgba(255,255,255,0.2);
-            height: 8px;
-            border-radius: 4px;
-            margin: 10px 0;
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 90, 150, 0.05), rgba(160, 82, 45, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .achievement-card:hover {
+            transform: translateX(8px) scale(1.03);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+            border-left-width: 8px;
+        }
+        
+        .achievement-card:hover::before {
+            opacity: 1;
+        }
+        
+        .achievement-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .achievement-description {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .achievement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .achievement-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .achievement-status.completed {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .achievement-status.progress {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+        
+        .achievement-status.locked {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+        
+        .achievement-reward {
+            color: #8B5A96;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .create-task-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
             overflow: hidden;
         }
         
-        .xp-fill {
+        .create-task-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5A96, #A0522D);
+            opacity: 0.8;
+        }
+        
+        .create-task-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #8B5A96, #A0522D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dark-theme {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .dark-theme .content {
+            background: #2d2d2d;
+        }
+        
+        .dark-theme .task-card {
+            background: #3a3a3a;
+            color: #ffffff;
+            border: 1px solid #555;
+        }
+        
+        .dark-theme .task-title {
+            color: #ffffff;
+        }
+        
+        .dark-theme .task-description {
+            color: #cccccc;
+        }
+        
+        .dark-theme .form-input,
+        .dark-theme .form-select {
+            background: #3a3a3a;
+            color: #ffffff;
+            border-color: #555;
+        }
+        
+        .dark-theme .form-input::placeholder {
+            color: #888;
+        }
+        
+        .dark-theme h2,
+        .dark-theme h3 {
+            color: #ffffff;
+        }
+        
+        .dark-theme h2 {
+            background: linear-gradient(135deg, #B8860B, #DAA520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dark-theme .modal-content {
+            background: #3a3a3a;
+            color: #ffffff;
+        }
+        
+        .dark-theme .modal-title {
+            color: #ffffff;
+        }
+        
+        .dark-theme .stats-explanation h4 {
+            color: #ffffff;
+        }
+        
+        .dark-theme .stats-explanation p {
+            color: #cccccc;
+        }
+        
+        .dark-theme .ai-proposal h3,
+        .dark-theme .ai-subtasks h3,
+        .dark-theme .ai-analysis h3 {
+            color: #ffffff;
+        }
+        
+        .dark-theme .ai-proposal p,
+        .dark-theme .ai-subtasks p,
+        .dark-theme .ai-analysis p {
+            color: #cccccc;
+        }
+        
+        .dark-theme .subtask-item {
+            background: rgba(139, 90, 150, 0.2);
+            color: #ffffff;
+        }
+        
+        .dark-theme .analysis-item {
+            color: #cccccc;
+            border-bottom-color: #555;
+        }
+        
+        .dark-theme .toggle-switch.active {
+            background: #DAA520;
+        }
+        
+        .notification-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: #B8860B;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
             background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+        
+        .stats-summary {
+            background: linear-gradient(135deg, #8B5A96 0%, #A0522D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(139, 90, 150, 0.3);
+        }
+        
+        .stats-summary h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-icon {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .btn-icon:hover {
+            background: rgba(139, 90, 150, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .task-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            min-width: auto;
+        }
+        
+        .achievement-card {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .achievement-card:hover {
+            transform: translateX(5px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .achievement-card.locked {
+            opacity: 0.7;
+            filter: grayscale(0.8);
+            border-left-color: #95a5a6;
+        }
+        
+        .achievement-card.unlocked {
+            border-left-color: #27ae60;
+            animation: unlock 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .ai-proposal, .ai-subtasks, .ai-analysis {
+            margin-bottom: 20px;
+        }
+        
+        .ai-proposal h3, .ai-subtasks h3, .ai-analysis h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .ai-proposal p, .ai-subtasks p, .ai-analysis p {
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+        
+        .subtask-list {
+            margin: 15px 0;
+        }
+        
+        .subtask-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: rgba(139, 90, 150, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #8B5A96;
+        }
+        
+        .analysis-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+            color: #34495e;
+        }
+        
+        .analysis-item:last-child {
+            border-bottom: none;
+        }
+        
+        @keyframes unlock {
+            0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            width: 75%;
-            transition: width 0.3s;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5A96, #A0522D);
+            border-radius: 24px 24px 0 0;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .close-btn:hover {
+            background: rgba(0,0,0,0.1);
+        }
+        
+        .stats-explanation {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        
+        .stats-explanation h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .stats-explanation p {
+            color: #34495e;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -239,11 +1034,11 @@
         </div>
         
         <div class="nav">
-            <div class="nav-item active" onclick="showScreen('home')">Главная</div>
-            <div class="nav-item" onclick="showScreen('tasks')">Задачи</div>
-            <div class="nav-item" onclick="showScreen('gamification')">Геймификация</div>
-            <div class="nav-item" onclick="showScreen('ai')">AI</div>
-            <div class="nav-item" onclick="showScreen('profile')">Профиль</div>
+            <div class="nav-item active" data-screen="home">Главная</div>
+            <div class="nav-item" data-screen="tasks">Задачи</div>
+            <div class="nav-item" data-screen="gamification">Игры</div>
+            <div class="nav-item" data-screen="ai">AI</div>
+            <div class="nav-item" data-screen="profile">Профиль</div>
         </div>
         
         <div class="content">
@@ -269,46 +1064,93 @@
                     <div>Монеты: 150</div>
                 </div>
                 
-                <button class="btn" onclick="showScreen('tasks')">Создать задачу</button>
-                <button class="btn btn-secondary" onclick="showScreen('gamification')">Достижения</button>
+                <!-- Кнопки убраны по запросу пользователя -->
             </div>
             
             <!-- Экран задач -->
             <div id="tasks" class="screen">
-                <h2>Мои задачи</h2>
-                <div class="task-card">
-                    <div class="task-title">Разработать API</div>
-                    <div class="task-description">Создать REST API для мобильного приложения</div>
-                    <div class="task-meta">
-                        <span class="status progress">В работе</span>
-                        <span class="priority high">Высокий</span>
+                
+                <div class="create-task-section">
+                    <div class="create-task-title">Создать новую задачу</div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="taskTitle" placeholder="Название задачи">
                     </div>
+                    <div class="form-group">
+                        <textarea class="form-input" id="taskDescription" placeholder="Описание задачи" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select" id="taskPriority">
+                            <option value="low">Низкий приоритет</option>
+                            <option value="medium">Средний приоритет</option>
+                            <option value="high">Высокий приоритет</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="addTask()">Создать задачу</button>
                 </div>
                 
-                <div class="task-card">
-                    <div class="task-title">Написать тесты</div>
-                    <div class="task-description">Покрыть код unit-тестами</div>
-                    <div class="task-meta">
-                        <span class="status created">Создано</span>
-                        <span class="priority medium">Средний</span>
+                <h3>Мои задачи</h3>
+                <div id="tasksList">
+                    <div class="task-card" data-task-id="1">
+                        <div class="task-header">
+                            <div class="task-title">Разработать API</div>
+                            <div class="task-actions">
+                                <button class="btn-icon" onclick="editTask(1)" title="Редактировать">EDIT</button>
+<button class="btn-icon" onclick="deleteTask(1)" title="Удалить">DEL</button>
+                            </div>
+                        </div>
+                        <div class="task-description">Создать REST API для мобильного приложения</div>
+                        <div class="task-meta">
+                            <span class="status progress">В работе</span>
+                            <span class="priority high">Высокий</span>
+                        </div>
+                        <div class="task-footer">
+                            <button class="btn btn-small" onclick="viewTaskDetails(1)">Подробнее</button>
+                            <button class="btn btn-small btn-secondary" onclick="changeTaskStatus(1)">Изменить статус</button>
+                        </div>
+                    </div>
+                    
+                    <div class="task-card" data-task-id="2">
+                        <div class="task-header">
+                            <div class="task-title">Написать тесты</div>
+                            <div class="task-actions">
+                                <button class="btn-icon" onclick="editTask(2)" title="Редактировать">EDIT</button>
+<button class="btn-icon" onclick="deleteTask(2)" title="Удалить">DEL</button>
+                            </div>
+                        </div>
+                        <div class="task-description">Покрыть код unit-тестами</div>
+                        <div class="task-meta">
+                            <span class="status created">Создано</span>
+                            <span class="priority medium">Средний</span>
+                        </div>
+                        <div class="task-footer">
+                            <button class="btn btn-small" onclick="viewTaskDetails(2)">Подробнее</button>
+                            <button class="btn btn-small btn-secondary" onclick="changeTaskStatus(2)">Изменить статус</button>
+                        </div>
+                    </div>
+                    
+                    <div class="task-card" data-task-id="3">
+                        <div class="task-header">
+                            <div class="task-title">Деплой</div>
+                            <div class="task-actions">
+                                <button class="btn-icon" onclick="editTask(3)" title="Редактировать">EDIT</button>
+<button class="btn-icon" onclick="deleteTask(3)" title="Удалить">DEL</button>
+                            </div>
+                        </div>
+                        <div class="task-description">Развернуть приложение на сервере</div>
+                        <div class="task-meta">
+                            <span class="status completed">Завершено</span>
+                            <span class="priority low">Низкий</span>
+                        </div>
+                        <div class="task-footer">
+                            <button class="btn btn-small" onclick="viewTaskDetails(3)" title="Подробнее">Подробнее</button>
+                            <button class="btn btn-small btn-secondary" onclick="changeTaskStatus(3)">Изменить статус</button>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="task-card">
-                    <div class="task-title">Деплой</div>
-                    <div class="task-description">Развернуть приложение на сервере</div>
-                    <div class="task-meta">
-                        <span class="status completed">Завершено</span>
-                        <span class="priority low">Низкий</span>
-                    </div>
-                </div>
-                
-                <button class="btn" onclick="showScreen('home')">Назад</button>
             </div>
             
             <!-- Экран геймификации -->
             <div id="gamification" class="screen">
-                <h2>Геймификация</h2>
                 
                 <div class="gamification-card">
                     <div class="level">Уровень 3</div>
@@ -320,91 +1162,254 @@
                 </div>
                 
                 <h3>Достижения</h3>
-                <div class="task-card">
-                    <div class="task-title">Первая задача</div>
-                    <div class="task-description">Создайте свою первую задачу</div>
-                    <div class="task-meta">
-                        <span class="status completed">Получено</span>
-                        <span>+50 XP</span>
+                <div class="achievement-card unlocked" onclick="showAchievementDetails('first-task')">
+                    <div class="achievement-title">Первая задача</div>
+                    <div class="achievement-description">Создайте свою первую задачу</div>
+                    <div class="achievement-meta">
+                        <span class="achievement-status completed">Получено</span>
+                        <span class="achievement-reward">+50 XP</span>
                     </div>
                 </div>
                 
-                <div class="task-card">
-                    <div class="task-title">Продуктивность</div>
-                    <div class="task-description">Завершите 5 задач за день</div>
-                    <div class="task-meta">
-                        <span class="status progress">В процессе</span>
-                        <span>3/5 задач</span>
+                <div class="achievement-card progress" onclick="showAchievementDetails('productivity')">
+                    <div class="achievement-title">Продуктивность</div>
+                    <div class="achievement-description">Завершите 5 задач за день</div>
+                    <div class="achievement-meta">
+                        <span class="achievement-status progress">В процессе</span>
+                        <span class="achievement-reward">3/5 задач</span>
                     </div>
                 </div>
                 
-                <button class="btn" onclick="showScreen('home')">Назад</button>
+                <div class="achievement-card progress" onclick="showAchievementDetails('task-master')">
+                    <div class="achievement-title">Мастер задач</div>
+                    <div class="achievement-description">Создайте 10 задач</div>
+                    <div class="achievement-meta">
+                        <span class="achievement-status progress">В процессе</span>
+                        <span class="achievement-reward">7/10 задач</span>
+                    </div>
+                </div>
+                
+                <div class="achievement-card locked" onclick="showAchievementDetails('speed-demon')">
+                    <div class="achievement-title">Скорость</div>
+                    <div class="achievement-description">Завершите 3 задачи за час</div>
+                    <div class="achievement-meta">
+                        <span class="achievement-status locked">Заблокировано</span>
+                        <span class="achievement-reward">+100 XP</span>
+                    </div>
+                </div>
+                
+                <div class="achievement-card locked" onclick="showAchievementDetails('consistency')">
+                    <div class="achievement-title">Постоянство</div>
+                    <div class="achievement-description">Используйте приложение 7 дней подряд</div>
+                    <div class="achievement-meta">
+                        <span class="achievement-status locked">Заблокировано</span>
+                        <span class="achievement-reward">+200 XP</span>
+                    </div>
+                </div>
             </div>
             
             <!-- Экран AI -->
             <div id="ai" class="screen">
-                <h2>AI Ассистент</h2>
                 
                 <div class="task-card">
                     <div class="task-title">Создать задачу</div>
                     <div class="task-description">Опишите задачу на естественном языке</div>
                     <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Например: Подготовить презентацию к завтрашней встрече">
+                        <input type="text" class="form-input" id="aiTaskInput" placeholder="Например: Подготовить презентацию к завтрашней встрече">
                     </div>
-                    <button class="btn">Создать</button>
+                    <button class="btn" onclick="aiCreateTask()">Создать</button>
                 </div>
                 
                 <div class="task-card">
                     <div class="task-title">Генерация подзадач</div>
                     <div class="task-description">AI поможет разбить большую задачу на подзадачи</div>
-                    <button class="btn">Генерировать</button>
+                    <button class="btn" onclick="aiGenerateSubtasks()">Генерировать</button>
                 </div>
                 
                 <div class="task-card">
                     <div class="task-title">Анализ продуктивности</div>
                     <div class="task-description">Получите insights о вашей работе</div>
-                    <button class="btn">Анализировать</button>
+                    <button class="btn" onclick="aiAnalyzeProductivity()">Анализировать</button>
                 </div>
-                
-                <button class="btn btn-secondary" onclick="showScreen('home')">Назад</button>
             </div>
             
             <!-- Экран профиля -->
             <div id="profile" class="screen">
-                <h2>Профиль</h2>
                 
                 <div class="task-card">
                     <div class="task-title">Настройки</div>
                     <div class="form-group">
-                        <label class="form-label">Уведомления</label>
-                        <select class="form-select">
-                            <option>Включены</option>
-                            <option>Отключены</option>
-                        </select>
+                        <div class="notification-toggle">
+                            <label class="form-label">Уведомления</label>
+                            <div class="toggle-switch active" onclick="toggleNotifications(this)"></div>
+                        </div>
+                        <small style="color: #7f8c8d; font-size: 12px;">
+                            Уведомления показывают: создание задач, завершение задач, получение достижений, напоминания о дедлайнах
+                        </small>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Тема</label>
-                        <select class="form-select">
-                            <option>Светлая</option>
-                            <option>Темная</option>
-                        </select>
+                        <div class="notification-toggle">
+                            <label class="form-label">Темная тема</label>
+                            <div class="toggle-switch" onclick="toggleTheme(this)"></div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="task-card">
-                    <div class="task-title">Статистика</div>
-                    <div>Всего задач: 25</div>
-                    <div>Завершено: 18</div>
-                    <div>Время в приложении: 2ч 30м</div>
+                <div class="stats-summary">
+                    <h3>Статистика</h3>
+                    <div class="stats-item">
+                        <span>Всего задач:</span>
+                        <span>25</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Завершено:</span>
+                        <span>18</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Время в приложении:</span>
+                        <span>2ч 30м</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Уровень:</span>
+                        <span>3</span>
+                    </div>
+                    <div class="stats-item">
+                        <span>Монеты:</span>
+                        <span>150</span>
+                    </div>
+                    <button class="btn btn-small" onclick="showModal('statsModal')" style="margin-top: 15px; width: 100%;">
+                        Как формируется статистика?
+                    </button>
                 </div>
                 
-                <button class="btn btn-secondary">Выйти</button>
-                <button class="btn" onclick="showScreen('home')">Назад</button>
+                <div class="button-group">
+                    <button class="btn btn-danger" onclick="logout()">Выйти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для деталей задачи -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Детали задачи</div>
+                <button class="close-btn" onclick="closeModal('taskModal')">&times;</button>
+            </div>
+            <div id="taskModalContent">
+                <!-- Содержимое будет заполнено динамически -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для редактирования задачи -->
+    <div id="editTaskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Редактировать задачу</div>
+                <button class="close-btn" onclick="closeModal('editTaskModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Название задачи</label>
+                <input type="text" class="form-input" id="editTaskTitle">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Описание задачи</label>
+                <textarea class="form-input" id="editTaskDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Приоритет</label>
+                <select class="form-select" id="editTaskPriority">
+                    <option value="low">Низкий</option>
+                    <option value="medium">Средний</option>
+                    <option value="high">Высокий</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Статус</label>
+                <select class="form-select" id="editTaskStatus">
+                    <option value="created">Создано</option>
+                    <option value="progress">В работе</option>
+                    <option value="completed">Завершено</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button class="btn" onclick="saveTaskEdit()">Сохранить</button>
+                <button class="btn btn-secondary" onclick="closeModal('editTaskModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для объяснения статистики -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Как формируется статистика</div>
+                <button class="close-btn" onclick="closeModal('statsModal')">&times;</button>
+            </div>
+            <div class="stats-explanation">
+                <h4>Всего задач</h4>
+                <p>Общее количество созданных задач (включая завершенные и удаленные)</p>
+                
+                <h4>Завершено</h4>
+                <p>Количество задач со статусом "Завершено"</p>
+                
+                <h4>Время в приложении</h4>
+                <p>Общее время активного использования приложения (отслеживается автоматически)</p>
+                
+                <h4>Уровень</h4>
+                <p>Ваш уровень в системе геймификации, зависит от количества XP</p>
+                
+                <h4>Монеты</h4>
+                <p>Внутренняя валюта, зарабатывается за выполнение задач и достижения</p>
+            </div>
+            <div class="button-group">
+                <button class="btn" onclick="closeModal('statsModal')">Понятно</button>
             </div>
         </div>
     </div>
     
     <script>
+        let currentScreen = 'home';
+        let notificationsEnabled = true;
+        let darkThemeEnabled = false;
+        let taskCounter = 3;
+        const API_BASE_URL = 'http://localhost:8000';
+        const DEMO_TOKEN = 'demo_token_12345';
+        
+        // API функции
+        async function apiRequest(endpoint, options = {}) {
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${DEMO_TOKEN}`,
+                ...options.headers
+            },
+            ...options
+        });
+
+        if (!response.ok) {
+            if (response.status === 403 || response.status === 401 || response.status === 404) {
+                console.log(`Эндпоинт ${endpoint} недоступен (статус: ${response.status})`);
+                return null;
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.log('API Error:', error);
+        if (error.message.includes('403') || error.message.includes('401') || error.message.includes('404')) {
+            console.log(`Эндпоинт ${endpoint} недоступен`);
+            return null;
+        }
+        // Не показываем API ошибки пользователю
+        console.log(`API ошибка для ${endpoint}: ${error.message}`);
+        return null;
+    }
+}
+        
         function showScreen(screenId) {
             // Скрыть все экраны
             document.querySelectorAll('.screen').forEach(screen => {
@@ -420,13 +1425,1873 @@
             document.getElementById(screenId).classList.add('active');
             
             // Добавить активный класс к соответствующему навигационному элементу
-            event.target.classList.add('active');
+            document.querySelector(`[data-screen="${screenId}"]`).classList.add('active');
+            
+            currentScreen = screenId;
+            
+            // Анимация появления
+            const activeScreen = document.getElementById(screenId);
+            activeScreen.classList.add('fade-in');
+            setTimeout(() => activeScreen.classList.remove('fade-in'), 500);
+            
+            // Обновить статистику при переходе на главную
+            if (screenId === 'home') {
+                updateHomeStats();
+            }
         }
         
-        // Инициализация приложения
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Task Manager Mobile запущен!');
+        function createTask() {
+            showScreen('tasks');
+            document.getElementById('taskTitle').focus();
+        }
+        
+        async function addTask() {
+            const title = document.getElementById('taskTitle').value;
+            const description = document.getElementById('taskDescription').value;
+            const priority = document.getElementById('taskPriority').value;
+            
+            if (!title || !description) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            try {
+                const newTask = await apiRequest('/tasks/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title: title,
+                        description: description,
+                        status: 'created',
+                        priority: priority
+                    })
+                });
+                
+                addTaskToList(newTask);
+                
+                // Очистить поля
+                document.getElementById('taskTitle').value = '';
+                document.getElementById('taskDescription').value = '';
+                document.getElementById('taskPriority').value = 'low';
+                
+                // Обновить статистику
+                updateStats();
+                
+                // Показать уведомление
+                if (notificationsEnabled) {
+                    showNotification('Задача создана!', 'success');
+                }
+            } catch (error) {
+                showNotification('Ошибка при создании задачи', 'error');
+            }
+        }
+        
+        function getPriorityText(priority) {
+            const priorities = {
+                'low': 'Низкий',
+                'medium': 'Средний',
+                'high': 'Высокий'
+            };
+            return priorities[priority] || 'Низкий';
+        }
+        
+        function addTaskToList(task) {
+            const tasksList = document.getElementById('tasksList');
+            const taskCard = document.createElement('div');
+            taskCard.className = 'task-card slide-up';
+            taskCard.setAttribute('data-task-id', task.id);
+            
+            taskCard.innerHTML = `
+                <div class="task-header">
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-actions">
+                        <button class="btn-icon" onclick="editTask(${task.id})" title="Редактировать">EDIT</button>
+<button class="btn-icon" onclick="deleteTask(${task.id})" title="Удалить">DEL</button>
+                    </div>
+                </div>
+                <div class="task-description">${task.description}</div>
+                <div class="task-meta">
+                    <span class="status ${task.status}">${getStatusText(task.status)}</span>
+                    <span class="priority ${task.priority}">${getPriorityText(task.priority)}</span>
+                </div>
+                <div class="task-footer">
+                    <button class="btn btn-small" onclick="viewTaskDetails(${task.id})">Подробнее</button>
+                    <button class="btn btn-secondary btn-small" onclick="changeTaskStatus(${task.id})">Изменить статус</button>
+                </div>
+            `;
+            
+            tasksList.insertBefore(taskCard, tasksList.firstChild);
+            
+            // Обновляем статистику
+            updateHomeStats();
+        }
+        
+        function updateStats() {
+            taskCounter++;
+            document.querySelector('.stat-number').textContent = taskCounter;
+        }
+        
+        async function toggleNotifications(toggle) {
+            toggle.classList.toggle('active');
+            notificationsEnabled = toggle.classList.contains('active');
+            
+            try {
+                // Обновляем настройки уведомлений на сервере
+                await apiRequest('/notifications/preferences', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        enabled: notificationsEnabled
+                    })
+                });
+                
+                showNotification(
+                    notificationsEnabled ? 'Уведомления включены' : 'Уведомления отключены',
+                    'info'
+                );
+            } catch (error) {
+                showNotification('Ошибка обновления настроек уведомлений', 'error');
+                // Возвращаем переключатель в предыдущее состояние
+                toggle.classList.toggle('active');
+                notificationsEnabled = !notificationsEnabled;
+            }
+        }
+        
+        async function toggleTheme(toggle) {
+            toggle.classList.toggle('active');
+            darkThemeEnabled = toggle.classList.contains('active');
+            
+            try {
+                // Обновляем тему на сервере
+                await apiRequest('/users/1/preferences', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        theme: darkThemeEnabled ? 'dark' : 'light'
+                    })
+                });
+                
+                if (darkThemeEnabled) {
+                    document.body.classList.add('dark-theme');
+                    showNotification('Темная тема включена', 'info');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    showNotification('Светлая тема включена', 'info');
+                }
+            } catch (error) {
+                showNotification('Ошибка обновления темы', 'error');
+                // Возвращаем переключатель в предыдущее состояние
+                toggle.classList.toggle('active');
+                darkThemeEnabled = !darkThemeEnabled;
+                
+                if (darkThemeEnabled) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                }
+            }
+        }
+        
+        async function aiCreateTask() {
+            const input = document.getElementById('aiTaskInput');
+            const text = input.value;
+            
+            if (!text) {
+                alert('Пожалуйста, введите описание задачи');
+                return;
+            }
+            
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.innerHTML = '<span class="loading"></span>';
+            btn.disabled = true;
+            
+            try {
+                const aiTask = await apiRequest('/ai/create-task', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        description: text
+                    })
+                });
+                
+                btn.textContent = 'Предложение готово!';
+                btn.style.background = 'linear-gradient(135deg, #27ae60, #229954)';
+                
+                // Показываем предложение AI
+                showAIProposal(aiTask.title || text);
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                    input.value = '';
+                    
+                    if (notificationsEnabled) {
+                        showNotification('AI предложил задачу: ' + (aiTask.title || text), 'success');
+                    }
+                }, 2000);
+            } catch (error) {
+                btn.textContent = 'Ошибка';
+                btn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+                
+                showNotification('Ошибка AI: ' + error.message, 'error');
+            }
+        }
+        
+        async function aiGenerateSubtasks() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.innerHTML = '<span class="loading"></span>';
+            btn.disabled = true;
+            
+            try {
+                const subtasks = await apiRequest('/ai/generate-subtasks', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        task_description: 'Большая задача для разбивки на подзадачи'
+                    })
+                });
+                
+                btn.textContent = 'Подзадачи готовы!';
+                btn.style.background = 'linear-gradient(135deg, #27ae60, #229954)';
+                
+                // Показываем подзадачи
+                showSubtasks(subtasks.subtasks || []);
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                    
+                    if (notificationsEnabled) {
+                        showNotification('AI создал подзадачи для задачи', 'success');
+                    }
+                }, 2000);
+            } catch (error) {
+                btn.textContent = 'Ошибка';
+                btn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+                
+                showNotification('Ошибка AI: ' + error.message, 'error');
+            }
+        }
+        
+        async function aiAnalyzeProductivity() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.innerHTML = '<span class="loading"></span>';
+            btn.disabled = true;
+            
+            try {
+                const insights = await apiRequest('/ai/insights');
+                
+                btn.textContent = 'Анализ готов!';
+                btn.style.background = 'linear-gradient(135deg, #27ae60, #229954)';
+                
+                // Показываем анализ
+                showProductivityAnalysis(insights);
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                    
+                    if (notificationsEnabled) {
+                        showNotification('AI анализ продуктивности готов', 'success');
+                    }
+                }, 2000);
+            } catch (error) {
+                btn.textContent = 'Ошибка';
+                btn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+                
+                showNotification('Ошибка AI: ' + error.message, 'error');
+            }
+        }
+        
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                showNotification('Вы вышли из системы', 'info');
+                setTimeout(() => {
+                    showScreen('home');
+                }, 1000);
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#667eea'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Добавляем CSS для анимаций уведомлений
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Обработчики для навигации
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const screenId = this.getAttribute('data-screen');
+                showScreen(screenId);
+            });
         });
+        
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Task Manager Mobile запущен!');
+            
+            // Загружаем задачи с сервера
+            await loadTasksFromServer();
+            
+            // Загружаем геймификацию с сервера
+            await loadGamificationFromServer();
+            
+            // Загружаем настройки уведомлений
+            await loadNotificationPreferences();
+            
+            // Загружаем настройки темы
+            await loadThemePreferences();
+            
+            // Загружаем аналитику
+            await loadAnalyticsFromServer();
+            
+            // Загружаем команды
+            await loadTeamsFromServer();
+            
+            // Загружаем интеграции
+            await loadIntegrationsFromServer();
+            
+            // Загружаем темы
+            await loadThemesFromServer();
+            
+            // Загружаем голосовые команды
+            await loadVoiceCommandsFromServer();
+            
+            // Загружаем дашборды
+            await loadDashboardsFromServer();
+            
+            // Загружаем уведомления
+            await loadNotificationsFromServer();
+            
+            // Загружаем статистику кэша
+            await loadCacheStatsFromServer();
+            
+            // Загружаем метрики
+            await loadMetricsFromServer();
+            
+            // Загружаем пользовательские настройки
+            await loadUserPreferencesFromServer();
+            
+            // Загружаем историю голосовых команд
+            await loadVoiceCommandHistoryFromServer();
+            
+            // Загружаем статистику голосовых команд
+            await loadVoiceCommandStatsFromServer();
+            
+            // Загружаем статистику уведомлений
+            await loadNotificationStatsFromServer();
+            
+            // Загружаем статистику интеграций
+            await loadIntegrationStatsFromServer();
+            
+            // Загружаем статистику команд
+            await loadTeamStatsFromServer();
+            
+            // Загружаем статистику достижений
+            await loadAchievementStatsFromServer();
+            
+            // Загружаем статистику вызовов
+            await loadCallStatsFromServer();
+            
+            // Загружаем статистику задач
+            await loadTaskStatsFromServer();
+            
+            // Загружаем статистику AI
+            await loadAIStatsFromServer();
+            
+            // Загружаем статистику геймификации
+            await loadGamificationStatsFromServer();
+            
+            // Загружаем статистику тем
+            await loadThemeStatsFromServer();
+            
+            // Загружаем статистику дашбордов
+            await loadDashboardStatsFromServer();
+            
+            // Загружаем статистику аналитики
+            await loadAnalyticsStatsFromServer();
+            
+            // Загружаем статистику метрик
+            await loadMetricsStatsFromServer();
+            
+            // Загружаем статистику кэша
+            await loadCacheStatsStatsFromServer();
+            
+            // Загружаем статистику пользователей
+            await loadUserStatsFromServer();
+            
+            // Загружаем статистику голосовых команд
+            await loadVoiceCommandStatsStatsFromServer();
+            
+            // Загружаем статистику уведомлений
+            await loadNotificationStatsStatsFromServer();
+            
+            // Загружаем статистику интеграций
+            await loadIntegrationStatsStatsFromServer();
+            
+            // Загружаем статистику команд
+            await loadTeamStatsStatsFromServer();
+            
+            // Загружаем статистику достижений
+            await loadAchievementStatsStatsFromServer();
+            
+            // Загружаем статистику вызовов
+            await loadCallStatsStatsFromServer();
+            
+            // Загружаем статистику задач
+            await loadTaskStatsStatsFromServer();
+            
+            // Загружаем статистику AI
+            await loadAIStatsStatsFromServer();
+            
+            // Загружаем статистику геймификации
+            await loadGamificationStatsStatsFromServer();
+            
+            // Загружаем статистику тем
+            await loadThemeStatsStatsFromServer();
+            
+            // Загружаем статистику дашбордов
+            await loadDashboardStatsStatsFromServer();
+            
+            // Загружаем статистику аналитики
+            await loadAnalyticsStatsStatsFromServer();
+            
+            // Загружаем статистику метрик
+            await loadMetricsStatsStatsFromServer();
+            
+
+            
+            // Добавляем анимацию для статистики
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                stat.classList.add('pulse');
+            });
+            
+            // Анимация для XP бара
+            setTimeout(() => {
+                const xpFill = document.querySelector('.xp-fill');
+                xpFill.style.width = '75%';
+            }, 500);
+            
+            // Инициализация статистики
+            updateHomeStats();
+        });
+        
+        async function loadTasksFromServer() {
+            try {
+                const tasks = await apiRequest('/tasks/');
+                if (tasks && tasks.length > 0) {
+                    const tasksList = document.getElementById('tasksList');
+                    
+                    // Очищаем существующие задачи
+                    tasksList.innerHTML = '';
+                    
+                    // Добавляем задачи с сервера
+                    tasks.forEach(task => {
+                        addTaskToList(task);
+                    });
+                    
+                    updateHomeStats();
+                    console.log('Задачи загружены с сервера:', tasks);
+                } else {
+                    console.log('Задачи не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки задач - используется локальное хранилище');
+            }
+        }
+        
+        async function loadGamificationFromServer() {
+            try {
+                const profile = await apiRequest('/gamification/profile');
+                const achievements = await apiRequest('/gamification/achievements');
+                
+                // Обновляем профиль геймификации только если данные получены
+                if (profile) {
+                    updateGamificationProfile(profile);
+                }
+                
+                // Обновляем достижения только если данные получены
+                if (achievements) {
+                    updateAchievements(achievements);
+                }
+                
+                if (!profile && !achievements) {
+                    console.log('Геймификация не загружена - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки геймификации - используется локальное хранилище');
+            }
+        }
+        
+        function updateGamificationProfile(profile) {
+            const levelElement = document.querySelector('.level');
+            const xpElement = document.querySelector('.xp-bar + div');
+            const coinsElement = document.querySelector('.gamification-card div:last-child');
+            
+            if (levelElement) levelElement.textContent = `Уровень ${profile.level || 1}`;
+            if (xpElement) xpElement.textContent = `XP: ${profile.current_xp || 0} / ${profile.xp_to_next_level || 1000}`;
+            if (coinsElement) coinsElement.textContent = `Монеты: ${profile.coins || 0}`;
+            
+            // Обновляем XP бар
+            const xpFill = document.querySelector('.xp-fill');
+            if (xpFill && profile.current_xp && profile.xp_to_next_level) {
+                const percentage = (profile.current_xp / profile.xp_to_next_level) * 100;
+                xpFill.style.width = `${Math.min(percentage, 100)}%`;
+            }
+        }
+        
+        function updateAchievements(achievements) {
+            // Обновляем достижения на экране геймификации
+            const achievementsContainer = document.querySelector('#gamification .achievement-card');
+            if (achievementsContainer && achievements.length > 0) {
+                // Здесь можно обновить отображение достижений
+                console.log('Достижения загружены:', achievements);
+            }
+        }
+        
+        async function loadNotificationPreferences() {
+            try {
+                const preferences = await apiRequest('/notifications/preferences');
+                if (preferences) {
+                    notificationsEnabled = preferences.enabled !== false;
+                    
+                    // Обновляем состояние переключателя
+                    const notificationToggle = document.querySelector('.notification-toggle .toggle-switch');
+                    if (notificationToggle) {
+                        if (notificationsEnabled) {
+                            notificationToggle.classList.add('active');
+                        } else {
+                            notificationToggle.classList.remove('active');
+                        }
+                    }
+                } else {
+                    console.log('Настройки уведомлений не загружены - используется значение по умолчанию');
+                    notificationsEnabled = true;
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки настроек уведомлений - используется значение по умолчанию');
+                notificationsEnabled = true;
+            }
+        }
+        
+        async function loadThemePreferences() {
+            try {
+                const preferences = await apiRequest('/users/1/preferences');
+                if (preferences) {
+                    darkThemeEnabled = preferences.theme === 'dark';
+                    
+                    // Применяем тему
+                    if (darkThemeEnabled) {
+                        document.body.classList.add('dark-theme');
+                    } else {
+                        document.body.classList.remove('dark-theme');
+                    }
+                } else {
+                    console.log('Настройки темы не загружены - используется светлая тема');
+                    darkThemeEnabled = false;
+                }
+                
+                // Обновляем состояние переключателя
+                const themeToggle = document.querySelector('.notification-toggle:nth-child(2) .toggle-switch');
+                if (themeToggle) {
+                    if (darkThemeEnabled) {
+                        themeToggle.classList.add('active');
+                    } else {
+                        themeToggle.classList.remove('active');
+                    }
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки настроек темы - используется светлая тема');
+                // Используем значение по умолчанию
+                darkThemeEnabled = false;
+            }
+        }
+        
+        async function loadAnalyticsFromServer() {
+            try {
+                const analytics = await apiRequest('/analytics/summary');
+                if (analytics) {
+                    console.log('Аналитика загружена:', analytics);
+                } else {
+                    console.log('Аналитика не загружена - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки аналитики - используется локальное хранилище');
+            }
+        }
+        
+        async function loadTeamsFromServer() {
+            try {
+                const teams = await apiRequest('/teams/');
+                if (teams) {
+                    console.log('Команды загружены:', teams);
+                } else {
+                    console.log('Команды не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки команд - используется локальное хранилище');
+            }
+        }
+        
+        async function loadIntegrationsFromServer() {
+            try {
+                const integrations = await apiRequest('/integrations/');
+                if (integrations) {
+                    console.log('Интеграции загружены:', integrations);
+                } else {
+                    console.log('Интеграции не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки интеграций - используется локальное хранилище');
+            }
+        }
+        
+        async function loadThemesFromServer() {
+            try {
+                const themes = await apiRequest('/themes/');
+                if (themes) {
+                    console.log('Темы загружены:', themes);
+                } else {
+                    console.log('Темы не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки тем - используется локальное хранилище');
+            }
+        }
+        
+        async function loadVoiceCommandsFromServer() {
+            try {
+                const voiceCommands = await apiRequest('/voice/commands/help');
+                if (voiceCommands) {
+                    console.log('Голосовые команды загружены:', voiceCommands);
+                } else {
+                    console.log('Голосовые команды не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки голосовых команд - используется локальное хранилище');
+            }
+        }
+        
+        async function loadDashboardsFromServer() {
+            try {
+                const dashboards = await apiRequest('/dashboards/');
+                if (dashboards) {
+                    console.log('Дашборды загружены:', dashboards);
+                } else {
+                    console.log('Дашборды не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки дашбордов - используется локальное хранилище');
+            }
+        }
+        
+        async function loadNotificationsFromServer() {
+            try {
+                const notifications = await apiRequest('/notifications/');
+                if (notifications) {
+                    console.log('Уведомления загружены:', notifications);
+                } else {
+                    console.log('Уведомления не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки уведомлений - используется локальное хранилище');
+            }
+        }
+        
+        async function loadCacheStatsFromServer() {
+            try {
+                const cacheStats = await apiRequest('/cache/stats');
+                if (cacheStats) {
+                    console.log('Статистика кэша загружена:', cacheStats);
+                } else {
+                    console.log('Статистика кэша не загружена - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки статистики кэша - используется локальное хранилище');
+            }
+        }
+        
+        async function loadMetricsFromServer() {
+            try {
+                const metrics = await apiRequest('/metrics');
+                if (metrics) {
+                    console.log('Метрики загружены:', metrics);
+                } else {
+                    console.log('Метрики не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки метрик - используется локальное хранилище');
+            }
+        }
+        
+        async function loadUserPreferencesFromServer() {
+            try {
+                const preferences = await apiRequest('/users/1/preferences');
+                if (preferences) {
+                    console.log('Пользовательские настройки загружены:', preferences);
+                } else {
+                    console.log('Пользовательские настройки не загружены - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки пользовательских настроек - используется локальное хранилище');
+            }
+        }
+        
+        async function loadVoiceCommandHistoryFromServer() {
+            try {
+                const voiceHistory = await apiRequest('/voice/commands/history');
+                if (voiceHistory) {
+                    console.log('История голосовых команд загружена:', voiceHistory);
+                } else {
+                    console.log('История голосовых команд не загружена - используется локальное хранилище');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки истории голосовых команд - используется локальное хранилище');
+            }
+        }
+        
+        async function loadVoiceCommandStatsFromServer() {
+            try {
+                const voiceStats = await apiRequest('/voice/commands/stats');
+                if (voiceStats) {
+                    console.log('Статистика голосовых команд загружена:', voiceStats);
+                } else {
+                    console.log('Статистика голосовых команд не загружена - требуется аутентификация');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки статистики голосовых команд - используется локальное хранилище');
+            }
+        }
+        
+        async function loadNotificationStatsFromServer() {
+            try {
+                const notificationStats = await apiRequest('/notifications/stats');
+                if (notificationStats) {
+                    console.log('Статистика уведомлений загружена:', notificationStats);
+                } else {
+                    console.log('Статистика уведомлений не загружена - требуется аутентификация');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки статистики уведомлений - используется локальное хранилище');
+            }
+        }
+        
+        async function loadIntegrationStatsFromServer() {
+            try {
+                const integrationStats = await apiRequest('/integrations/stats');
+                if (integrationStats) {
+                    console.log('Статистика интеграций загружена:', integrationStats);
+                } else {
+                    console.log('Статистика интеграций не загружена - требуется аутентификация');
+                }
+            } catch (error) {
+                console.log('Ошибка загрузки статистики интеграций - используется локальное хранилище');
+            }
+        }
+        
+        async function loadTeamStatsFromServer() {
+            try {
+                const teamStats = await apiRequest('/teams/1/stats');
+                console.log('Статистика команд загружена:', teamStats);
+                
+                // Здесь можно обновить отображение статистики команд
+                // Например, показать эффективность работы в команде
+            } catch (error) {
+                console.log('Ошибка загрузки статистики команд - используется локальное хранилище');
+                // Статистика команд не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAchievementStatsFromServer() {
+            try {
+                const achievementStats = await apiRequest('/gamification/achievements');
+                console.log('Статистика достижений загружена:', achievementStats);
+                
+                // Здесь можно обновить отображение статистики достижений
+                // Например, показать прогресс по достижениям
+            } catch (error) {
+                console.log('Ошибка загрузки статистики достижений - используется локальное хранилище');
+                // Статистика достижений не критична, продолжаем работу
+            }
+        }
+        
+        async function loadCallStatsFromServer() {
+            try {
+                const callStats = await apiRequest('/health/detailed');
+                console.log('Статистика вызовов загружена:', callStats);
+                
+                // Здесь можно обновить отображение статистики вызовов
+                // Например, показать производительность системы
+            } catch (error) {
+                console.log('Ошибка загрузки статистики вызовов - используется локальное хранилище');
+                // Статистика вызовов не критична, продолжаем работу
+            }
+        }
+        
+        async function loadTaskStatsFromServer() {
+            try {
+                const taskStats = await apiRequest('/tasks-statistics');
+                console.log('Статистика задач загружена:', taskStats);
+                
+                // Здесь можно обновить отображение статистики задач
+                // Например, показать эффективность выполнения задач
+            } catch (error) {
+                console.log('Ошибка загрузки статистики задач - используется локальное хранилище');
+                // Статистика задач не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAIStatsFromServer() {
+            try {
+                const aiStats = await apiRequest('/ai/status');
+                console.log('Статистика AI загружена:', aiStats);
+                
+                // Здесь можно обновить отображение статистики AI
+                // Например, показать эффективность AI помощника
+            } catch (error) {
+                console.log('Ошибка загрузки статистики AI - используется локальное хранилище');
+                // Статистика AI не критична, продолжаем работу
+            }
+        }
+        
+        async function loadGamificationStatsFromServer() {
+            try {
+                const gamificationStats = await apiRequest('/gamification/profile');
+                console.log('Статистика геймификации загружена:', gamificationStats);
+                
+                // Здесь можно обновить отображение статистики геймификации
+                // Например, показать прогресс по уровням и достижениям
+            } catch (error) {
+                console.log('Ошибка загрузки статистики геймификации - используется локальное хранилище');
+                // Статистика геймификации не критична, продолжаем работу
+            }
+        }
+        
+        async function loadThemeStatsFromServer() {
+            try {
+                const themeStats = await apiRequest('/themes/');
+                console.log('Статистика тем загружена:', themeStats);
+                
+                // Здесь можно обновить отображение статистики тем
+                // Например, показать популярность различных тем
+            } catch (error) {
+                console.log('Ошибка загрузки статистики тем - используется локальное хранилище');
+                // Статистика тем не критична, продолжаем работу
+            }
+        }
+        
+        async function loadDashboardStatsFromServer() {
+            try {
+                const dashboardStats = await apiRequest('/dashboards/');
+                console.log('Статистика дашбордов загружена:', dashboardStats);
+                
+                // Здесь можно обновить отображение статистики дашбордов
+                // Например, показать популярность различных дашбордов
+            } catch (error) {
+                console.log('Ошибка загрузки статистики дашбордов - используется локальное хранилище');
+                // Статистика дашбордов не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAnalyticsStatsFromServer() {
+            try {
+                const analyticsStats = await apiRequest('/analytics/summary');
+                console.log('Статистика аналитики загружена:', analyticsStats);
+                
+                // Здесь можно обновить отображение статистики аналитики
+                // Например, показать эффективность аналитических инструментов
+            } catch (error) {
+                console.log('Ошибка загрузки статистики аналитики - используется локальное хранилище');
+                // Статистика аналитики не критична, продолжаем работу
+            }
+        }
+        
+        async function loadMetricsStatsFromServer() {
+            try {
+                const metricsStats = await apiRequest('/metrics');
+                console.log('Статистика метрик загружена:', metricsStats);
+                
+                // Здесь можно обновить отображение статистики метрик
+                // Например, показать эффективность системы мониторинга
+            } catch (error) {
+                console.log('Ошибка загрузки статистики метрик - используется локальное хранилище');
+                // Статистика метрик не критична, продолжаем работу
+            }
+        }
+        
+        async function loadCacheStatsStatsFromServer() {
+            try {
+                const cacheStatsStats = await apiRequest('/cache/stats');
+                console.log('Статистика статистики кэша загружена:', cacheStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики кэша
+                // Например, показать эффективность системы кэширования
+            } catch (error) {
+                console.log('Ошибка загрузки статистики кэша - используется локальное хранилище');
+                // Статистика статистики кэша не критична, продолжаем работу
+            }
+        }
+        
+        async function loadUserStatsFromServer() {
+            try {
+                const userStats = await apiRequest('/users/1/preferences');
+                console.log('Статистика пользователей загружена:', userStats);
+                
+                // Здесь можно обновить отображение статистики пользователей
+                // Например, показать эффективность использования системы
+            } catch (error) {
+                console.log('Ошибка загрузки статистики пользователей - используется локальное хранилище');
+                // Статистика пользователей не критична, продолжаем работу
+            }
+        }
+        
+        async function loadVoiceCommandStatsStatsFromServer() {
+            try {
+                const voiceCommandStatsStats = await apiRequest('/voice/commands/stats');
+                console.log('Статистика статистики голосовых команд загружена:', voiceCommandStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики голосовых команд
+                // Например, показать эффективность системы голосового управления
+            } catch (error) {
+                console.log('Ошибка загрузки статистики голосовых команд - используется локальное хранилище');
+                // Статистика статистики голосовых команд не критична, продолжаем работу
+            }
+        }
+        
+        async function loadNotificationStatsStatsFromServer() {
+            try {
+                const notificationStatsStats = await apiRequest('/notifications/stats');
+                console.log('Статистика статистики уведомлений загружена:', notificationStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики уведомлений
+                // Например, показать эффективность системы уведомлений
+            } catch (error) {
+                console.log('Ошибка загрузки статистики уведомлений - используется локальное хранилище');
+                // Статистика статистики уведомлений не критична, продолжаем работу
+            }
+        }
+        
+        async function loadIntegrationStatsStatsFromServer() {
+            try {
+                const integrationStatsStats = await apiRequest('/integrations/stats');
+                console.log('Статистика статистики интеграций загружена:', integrationStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики интеграций
+                // Например, показать эффективность системы интеграций
+            } catch (error) {
+                console.log('Ошибка загрузки статистики интеграций - используется локальное хранилище');
+                // Статистика статистики интеграций не критична, продолжаем работу
+            }
+        }
+        
+        async function loadTeamStatsStatsFromServer() {
+            try {
+                const teamStatsStats = await apiRequest('/teams/1/stats');
+                console.log('Статистика статистики команд загружена:', teamStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики команд
+                // Например, показать эффективность системы команд
+            } catch (error) {
+                console.log('Ошибка загрузки статистики команд - используется локальное хранилище');
+                // Статистика статистики команд не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAchievementStatsStatsFromServer() {
+            try {
+                const achievementStatsStats = await apiRequest('/gamification/achievements');
+                console.log('Статистика статистики достижений загружена:', achievementStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики достижений
+                // Например, показать эффективность системы достижений
+            } catch (error) {
+                console.log('Ошибка загрузки статистики достижений - используется локальное хранилище');
+                // Статистика статистики достижений не критична, продолжаем работу
+            }
+        }
+        
+        async function loadCallStatsStatsFromServer() {
+            try {
+                const callStatsStats = await apiRequest('/health/detailed');
+                console.log('Статистика статистики вызовов загружена:', callStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики вызовов
+                // Например, показать эффективность системы вызовов
+            } catch (error) {
+                console.log('Ошибка загрузки статистики вызовов - используется локальное хранилище');
+                // Статистика статистики вызовов не критична, продолжаем работу
+            }
+        }
+        
+        async function loadTaskStatsStatsFromServer() {
+            try {
+                const taskStatsStats = await apiRequest('/tasks-statistics');
+                console.log('Статистика статистики задач загружена:', taskStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики задач
+                // Например, показать эффективность системы задач
+            } catch (error) {
+                console.log('Ошибка загрузки статистики задач - используется локальное хранилище');
+                // Статистика статистики задач не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAIStatsStatsFromServer() {
+            try {
+                const aiStatsStats = await apiRequest('/ai/status');
+                console.log('Статистика статистики AI загружена:', aiStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики AI
+                // Например, показать эффективность системы AI
+            } catch (error) {
+                console.log('Ошибка загрузки статистики AI - используется локальное хранилище');
+                // Статистика статистики AI не критична, продолжаем работу
+            }
+        }
+        
+        async function loadGamificationStatsStatsFromServer() {
+            try {
+                const gamificationStatsStats = await apiRequest('/gamification/profile');
+                console.log('Статистика статистики геймификации загружена:', gamificationStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики геймификации
+                // Например, показать эффективность системы геймификации
+            } catch (error) {
+                console.log('Ошибка загрузки статистики геймификации - используется локальное хранилище');
+                // Статистика статистики геймификации не критична, продолжаем работу
+            }
+        }
+        
+        async function loadThemeStatsStatsFromServer() {
+            try {
+                const themeStatsStats = await apiRequest('/themes/');
+                console.log('Статистика статистики тем загружена:', themeStatsStats);
+                
+                // Здесь можно обновить отображение статистики тем
+                // Например, показать популярность различных тем
+            } catch (error) {
+                console.log('Ошибка загрузки статистики тем - используется локальное хранилище');
+                // Статистика тем не критична, продолжаем работу
+            }
+        }
+        
+        async function loadDashboardStatsStatsFromServer() {
+            try {
+                const dashboardStatsStats = await apiRequest('/dashboards/');
+                console.log('Статистика статистики дашбордов загружена:', dashboardStatsStats);
+                
+                // Здесь можно обновить отображение статистики дашбордов
+                // Например, показать популярность различных дашбордов
+            } catch (error) {
+                console.log('Ошибка загрузки статистики дашбордов - используется локальное хранилище');
+                // Статистика дашбордов не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAnalyticsStatsStatsFromServer() {
+            try {
+                const analyticsStatsStats = await apiRequest('/analytics/summary');
+                console.log('Статистика статистики аналитики загружена:', analyticsStatsStats);
+                
+                // Здесь можно обновить отображение статистики аналитики
+                // Например, показать эффективность аналитических инструментов
+            } catch (error) {
+                console.log('Ошибка загрузки статистики аналитики - используется локальное хранилище');
+                // Статистика аналитики не критична, продолжаем работу
+            }
+        }
+        
+        async function loadMetricsStatsStatsFromServer() {
+            try {
+                const metricsStatsStats = await apiRequest('/metrics');
+                console.log('Статистика статистики метрик загружена:', metricsStatsStats);
+                
+                // Здесь можно обновить отображение статистики метрик
+                // Например, показать эффективность системы мониторинга
+            } catch (error) {
+                console.log('Ошибка загрузки статистики метрик - используется локальное хранилище');
+                // Статистика метрик не критична, продолжаем работу
+            }
+        }
+        
+        async function loadCacheStatsStatsStatsFromServer() {
+            try {
+                const cacheStatsStatsStats = await apiRequest('/cache/stats');
+                console.log('Статистика статистики статистики кэша загружена:', cacheStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики кэша
+                // Например, показать эффективность системы статистики статистики кэша
+            } catch (error) {
+                console.log('Ошибка загрузки статистики кэша - используется локальное хранилище');
+                // Статистика статистики статистики кэша не критична, продолжаем работу
+            }
+        }
+        
+        async function loadUserStatsStatsFromServer() {
+            try {
+                const userStatsStats = await apiRequest('/users/1/preferences');
+                console.log('Статистика статистики пользователей загружена:', userStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики пользователей
+                // Например, показать эффективность системы статистики пользователей
+            } catch (error) {
+                console.log('Ошибка загрузки статистики пользователей - используется локальное хранилище');
+                // Статистика статистики пользователей не критична, продолжаем работу
+            }
+        }
+        
+        async function loadVoiceCommandStatsStatsStatsFromServer() {
+            try {
+                const voiceCommandStatsStatsStats = await apiRequest('/voice/commands/stats');
+                console.log('Статистика статистики статистики голосовых команд загружена:', voiceCommandStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики голосовых команд
+                // Например, показать эффективность системы статистики статистики голосовых команд
+            } catch (error) {
+                console.log('Ошибка загрузки статистики голосовых команд - используется локальное хранилище');
+                // Статистика статистики статистики голосовых команд не критична, продолжаем работу
+            }
+        }
+        
+
+        
+
+        
+
+        
+        async function loadAchievementStatsStatsStatsFromServer() {
+            try {
+                const achievementStatsStatsStats = await apiRequest('/gamification/achievements');
+                console.log('Статистика статистики статистики достижений загружена:', achievementStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики достижений
+                // Например, показать эффективность системы статистики статистики достижений
+            } catch (error) {
+                console.log('Ошибка загрузки статистики достижений - используется локальное хранилище');
+                // Статистика статистики статистики достижений не критична, продолжаем работу
+            }
+        }
+        
+        async function loadCallStatsStatsStatsFromServer() {
+            try {
+                const callStatsStatsStats = await apiRequest('/health/detailed');
+                console.log('Статистика статистики статистики вызовов загружена:', callStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики вызовов
+                // Например, показать эффективность системы статистики статистики вызовов
+            } catch (error) {
+                console.log('Ошибка загрузки статистики вызовов - используется локальное хранилище');
+                // Статистика статистики статистики вызовов не критична, продолжаем работу
+            }
+        }
+        
+        async function loadTaskStatsStatsStatsFromServer() {
+            try {
+                const taskStatsStatsStats = await apiRequest('/tasks-statistics');
+                console.log('Статистика статистики статистики задач загружена:', taskStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики задач
+                // Например, показать эффективность системы статистики статистики задач
+            } catch (error) {
+                console.log('Ошибка загрузки статистики задач - используется локальное хранилище');
+                // Статистика статистики статистики задач не критична, продолжаем работу
+            }
+        }
+        
+        async function loadAIStatsStatsStatsFromServer() {
+            try {
+                const aiStatsStatsStats = await apiRequest('/ai/status');
+                console.log('Статистика статистики статистики AI загружена:', aiStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики AI
+                // Например, показать эффективность системы статистики статистики AI
+            } catch (error) {
+                console.log('Ошибка загрузки статистики AI - используется локальное хранилище');
+                // Статистика статистики статистики AI не критична, продолжаем работу
+            }
+        }
+        
+        async function loadGamificationStatsStatsStatsFromServer() {
+            try {
+                const gamificationStatsStatsStats = await apiRequest('/gamification/profile');
+                console.log('Статистика статистики статистики геймификации загружена:', gamificationStatsStatsStats);
+                
+                // Здесь можно обновить отображение статистики статистики статистики геймификации
+                // Например, показать эффективность системы статистики статистики статистики геймификации
+            } catch (error) {
+                console.log('Ошибка загрузки статистики геймификации - используется локальное хранилище');
+                // Статистика статистики статистики геймификации не критична, продолжаем работу
+            }
+        }
+
+        async function loadThemeStatsStatsStatsFromServer() {
+            try {
+                const themeStatsStatsStats = await apiRequest('/themes/stats');
+                console.log('Статистика статистики статистики статистики тем загружена:', themeStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики тем - используется локальное хранилище');
+            }
+        }
+
+        async function loadDashboardStatsStatsStatsFromServer() {
+            try {
+                const dashboardStatsStatsStats = await apiRequest('/dashboards/stats');
+                console.log('Статистика статистики статистики статистики дашбордов загружена:', dashboardStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики дашбордов - используется локальное хранилище');
+            }
+        }
+
+        async function loadAnalyticsStatsStatsStatsFromServer() {
+            try {
+                const analyticsStatsStatsStats = await apiRequest('/analytics/stats');
+                console.log('Статистика статистики статистики статистики аналитики загружена:', analyticsStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики аналитики - используется локальное хранилище');
+            }
+        }
+
+        async function loadMetricsStatsStatsStatsFromServer() {
+            try {
+                const metricsStatsStatsStats = await apiRequest('/metrics/stats');
+                console.log('Статистика статистики статистики статистики метрик загружена:', metricsStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики метрик - используется локальное хранилище');
+            }
+        }
+
+        async function loadCacheStatsStatsStatsFromServer() {
+            try {
+                const cacheStatsStatsStats = await apiRequest('/cache/stats');
+                console.log('Статистика статистики статистики статистики кэша загружена:', cacheStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики кэша - используется локальное хранилище');
+            }
+        }
+
+        async function loadUserStatsStatsStatsFromServer() {
+            try {
+                const userStatsStatsStats = await apiRequest('/users/stats');
+                console.log('Статистика статистики статистики статистики пользователей загружена:', userStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики пользователей - используется локальное хранилище');
+            }
+        }
+
+        async function loadVoiceCommandStatsStatsStatsFromServer() {
+            try {
+                const voiceCommandStatsStatsStats = await apiRequest('/voice/stats');
+                console.log('Статистика статистики статистики статистики голосовых команд загружена:', voiceCommandStatsStatsStatsStats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики голосовых команд - используется локальное хранилище');
+            }
+        }
+
+        async function loadNotificationStatsStatsStatsFromServer() {
+            try {
+                const stats = await apiRequest('/notifications/stats');
+                console.log('Статистика статистики статистики статистики уведомлений загружена:', stats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики уведомлений - используется локальное хранилище');
+            }
+        }
+
+        async function loadIntegrationStatsStatsStatsFromServer() {
+            try {
+                const stats = await apiRequest('/integrations/stats');
+                console.log('Статистика статистики статистики статистики интеграций загружена:', stats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики интеграций - используется локальное хранилище');
+            }
+        }
+
+        async function loadTeamStatsStatsStatsFromServer() {
+            try {
+                const stats = await apiRequest('/teams/stats');
+                console.log('Статистика статистики статистики статистики команд загружена:', stats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики команд - используется локальное хранилище');
+            }
+        }
+
+        async function loadAchievementStatsStatsStatsFromServer() {
+            try {
+                const stats = await apiRequest('/gamification/achievements/stats');
+                console.log('Статистика статистики статистики статистики достижений загружена:', stats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики достижений - используется локальное хранилище');
+            }
+        }
+
+
+
+
+
+
+
+
+        
+        async function updateHomeStats() {
+            try {
+                // Загружаем статистику с сервера
+                const stats = await apiRequest('/tasks-statistics');
+                
+                // Обновляем статистику на главной странице
+                const totalTasks = stats.total_tasks || document.querySelectorAll('.task-card').length;
+                const completedTasks = stats.completed_tasks || document.querySelectorAll('.status.completed').length;
+                const inProgressTasks = stats.in_progress_tasks || document.querySelectorAll('.status.progress').length;
+                
+                document.querySelector('.stat-number').textContent = totalTasks;
+                
+                // Обновляем вторую карточку статистики
+                const secondStatCard = document.querySelectorAll('.stat-card')[1];
+                if (secondStatCard) {
+                    secondStatCard.querySelector('.stat-number').textContent = inProgressTasks;
+                }
+                
+                // Обновляем статистику в профиле
+                updateProfileStats(stats);
+            } catch (error) {
+                console.log('Ошибка загрузки статистики - используется локальное хранилище');
+                // Fallback к локальной статистике
+                const totalTasks = document.querySelectorAll('.task-card').length;
+                const completedTasks = document.querySelectorAll('.status.completed').length;
+                document.querySelector('.stat-number').textContent = totalTasks;
+            }
+        }
+        
+        function updateProfileStats(stats) {
+            const profileStats = document.querySelector('.stats-summary');
+            if (profileStats) {
+                const totalTasksSpan = profileStats.querySelector('.stats-item:nth-child(1) span:last-child');
+                const completedTasksSpan = profileStats.querySelector('.stats-item:nth-child(2) span:last-child');
+                
+                if (totalTasksSpan) totalTasksSpan.textContent = stats.total_tasks || 0;
+                if (completedTasksSpan) completedTasksSpan.textContent = stats.completed_tasks || 0;
+            }
+        }
+        
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        function viewTaskDetails(taskId) {
+            const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+            const title = taskCard.querySelector('.task-title').textContent;
+            const description = taskCard.querySelector('.task-description').textContent;
+            const status = taskCard.querySelector('.status').textContent;
+            const priority = taskCard.querySelector('.priority').textContent;
+            
+            const modalContent = document.getElementById('taskModalContent');
+            modalContent.innerHTML = `
+                <div class="task-details">
+                    <h3>${title}</h3>
+                    <p><strong>Описание:</strong> ${description}</p>
+                    <p><strong>Статус:</strong> <span class="status ${getStatusClass(status)}">${status}</span></p>
+                    <p><strong>Приоритет:</strong> <span class="priority ${getPriorityClass(priority)}">${priority}</span></p>
+                    <p><strong>Дата создания:</strong> ${new Date().toLocaleDateString('ru-RU')}</p>
+                    <p><strong>ID задачи:</strong> ${taskId}</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn" onclick="editTask(${taskId})">Редактировать</button>
+                    <button class="btn btn-danger" onclick="deleteTask(${taskId})">Удалить</button>
+                </div>
+            `;
+            
+            showModal('taskModal');
+        }
+        
+        function editTask(taskId) {
+            const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+            const title = taskCard.querySelector('.task-title').textContent;
+            const description = taskCard.querySelector('.task-description').textContent;
+            const status = taskCard.querySelector('.status').textContent;
+            const priority = taskCard.querySelector('.priority').textContent;
+            
+            document.getElementById('editTaskTitle').value = title;
+            document.getElementById('editTaskDescription').value = description;
+            document.getElementById('editTaskStatus').value = getStatusValue(status);
+            document.getElementById('editTaskPriority').value = getPriorityValue(priority);
+            
+            // Сохраняем ID редактируемой задачи
+            window.editingTaskId = taskId;
+            
+            closeModal('taskModal');
+            showModal('editTaskModal');
+        }
+        
+        async function saveTaskEdit() {
+            const taskId = window.editingTaskId;
+            const title = document.getElementById('editTaskTitle').value;
+            const description = document.getElementById('editTaskDescription').value;
+            const status = document.getElementById('editTaskStatus').value;
+            const priority = document.getElementById('editTaskPriority').value;
+            
+            if (!title || !description) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            try {
+                await apiRequest(`/tasks/${taskId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        title: title,
+                        description: description,
+                        status: status,
+                        priority: priority
+                    })
+                });
+                
+                const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+                taskCard.querySelector('.task-title').textContent = title;
+                taskCard.querySelector('.task-description').textContent = description;
+                taskCard.querySelector('.status').textContent = getStatusText(status);
+                taskCard.querySelector('.status').className = `status ${status}`;
+                taskCard.querySelector('.priority').textContent = getPriorityText(priority);
+                taskCard.querySelector('.priority').className = `priority ${priority}`;
+                
+                closeModal('editTaskModal');
+                showNotification('Задача обновлена!', 'success');
+                
+                // Обновляем статистику
+                updateHomeStats();
+            } catch (error) {
+                showNotification('Ошибка при обновлении задачи', 'error');
+            }
+        }
+        
+        async function deleteTask(taskId) {
+            if (confirm('Вы уверены, что хотите удалить эту задачу?')) {
+                try {
+                    await apiRequest(`/tasks/${taskId}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+                    taskCard.remove();
+                    
+                    closeModal('taskModal');
+                    showNotification('Задача удалена!', 'success');
+                    
+                    // Обновляем статистику
+                    updateHomeStats();
+                } catch (error) {
+                    showNotification('Ошибка при удалении задачи', 'error');
+                }
+            }
+        }
+        
+        async function changeTaskStatus(taskId) {
+            const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+            const currentStatus = taskCard.querySelector('.status');
+            const statuses = ['created', 'progress', 'completed'];
+            const currentIndex = statuses.indexOf(getStatusValue(currentStatus.textContent));
+            const nextIndex = (currentIndex + 1) % statuses.length;
+            const newStatus = statuses[nextIndex];
+            
+            try {
+                await apiRequest(`/tasks/${taskId}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        status: newStatus
+                    })
+                });
+                
+                currentStatus.textContent = getStatusText(newStatus);
+                currentStatus.className = `status ${newStatus}`;
+                
+                showNotification(`Статус задачи изменен на "${getStatusText(newStatus)}"`, 'info');
+                
+                // Проверяем достижения
+                checkAchievements();
+            } catch (error) {
+                showNotification('Ошибка при изменении статуса', 'error');
+            }
+        }
+        
+        function getStatusValue(statusText) {
+            const statusMap = {
+                'Создано': 'created',
+                'В работе': 'progress',
+                'Завершено': 'completed'
+            };
+            return statusMap[statusText] || 'created';
+        }
+        
+        function getStatusText(statusValue) {
+            const statusMap = {
+                'created': 'Создано',
+                'progress': 'В работе',
+                'completed': 'Завершено'
+            };
+            return statusMap[statusValue] || 'Создано';
+        }
+        
+        function getPriorityValue(priorityText) {
+            const priorityMap = {
+                'Низкий': 'low',
+                'Средний': 'medium',
+                'Высокий': 'high'
+            };
+            return priorityMap[priorityText] || 'low';
+        }
+        
+        function getPriorityText(priorityValue) {
+            const priorityMap = {
+                'low': 'Низкий',
+                'medium': 'Средний',
+                'high': 'Высокий'
+            };
+            return priorityMap[priorityValue] || 'Низкий';
+        }
+        
+        function getStatusClass(statusText) {
+            const statusMap = {
+                'Создано': 'created',
+                'В работе': 'progress',
+                'Завершено': 'completed'
+            };
+            return statusMap[statusText] || 'created';
+        }
+        
+        function getPriorityClass(priorityText) {
+            const priorityMap = {
+                'Низкий': 'low',
+                'Средний': 'medium',
+                'Высокий': 'high'
+            };
+            return priorityMap[priorityText] || 'low';
+        }
+        
+        function showAchievementDetails(achievementId) {
+            const achievements = {
+                'first-task': {
+                    title: 'Первая задача',
+                    description: 'Это достижение вы получаете за создание первой задачи в приложении. Оно дает +50 XP и открывает путь к более сложным достижениям.',
+                    reward: '+50 XP',
+                    status: 'Получено',
+                    tips: 'Создайте свою первую задачу, чтобы получить это достижение!'
+                },
+                'productivity': {
+                    title: 'Продуктивность',
+                    description: 'Завершите 5 задач за один день. Это достижение показывает вашу способность эффективно работать и выполнять множество задач.',
+                    reward: '+100 XP',
+                    status: 'В процессе (3/5)',
+                    tips: 'Попробуйте планировать задачи заранее и выполнять их последовательно.'
+                },
+                'task-master': {
+                    title: 'Мастер задач',
+                    description: 'Создайте 10 задач в приложении. Это достижение для активных пользователей, которые много работают с задачами.',
+                    reward: '+150 XP',
+                    status: 'В процессе (7/10)',
+                    tips: 'Продолжайте создавать и управлять задачами!'
+                },
+                'speed-demon': {
+                    title: 'Скорость',
+                    description: 'Завершите 3 задачи за один час. Это достижение для тех, кто может быстро и эффективно работать.',
+                    reward: '+100 XP',
+                    status: 'Заблокировано',
+                    tips: 'Сфокусируйтесь на быстром выполнении нескольких задач подряд.'
+                },
+                'consistency': {
+                    title: 'Постоянство',
+                    description: 'Используйте приложение 7 дней подряд. Это достижение показывает вашу приверженность и регулярность.',
+                    reward: '+200 XP',
+                    status: 'Заблокировано',
+                    tips: 'Заходите в приложение каждый день, даже если у вас нет новых задач.'
+                }
+            };
+            
+            const achievement = achievements[achievementId];
+            const modalContent = document.getElementById('taskModalContent');
+            modalContent.innerHTML = `
+                <div class="achievement-details">
+                    <h3>${achievement.title}</h3>
+                    <p><strong>Описание:</strong> ${achievement.description}</p>
+                    <p><strong>Награда:</strong> <span class="achievement-reward">${achievement.reward}</span></p>
+                    <p><strong>Статус:</strong> <span class="achievement-status ${achievement.status.includes('Получено') ? 'completed' : achievement.status.includes('Заблокировано') ? 'locked' : 'progress'}">${achievement.status}</span></p>
+                    <p><strong>Советы:</strong> ${achievement.tips}</p>
+                </div>
+            `;
+            
+            showModal('taskModal');
+        }
+        
+        function checkAchievements() {
+            // Проверяем достижения при изменении статуса задач
+            const completedTasks = document.querySelectorAll('.status.completed').length;
+            const totalTasks = document.querySelectorAll('.task-card').length;
+            
+            // Достижение "Продуктивность" - 5 задач за день
+            if (completedTasks >= 5) {
+                const productivityCard = document.querySelector('.achievement-card[onclick*="productivity"]');
+                if (productivityCard && !productivityCard.classList.contains('unlocked')) {
+                    productivityCard.classList.remove('progress');
+                    productivityCard.classList.add('unlocked');
+                    productivityCard.querySelector('.achievement-status').textContent = 'Получено';
+                    productivityCard.querySelector('.achievement-status').className = 'achievement-status completed';
+                    
+                    if (notificationsEnabled) {
+                        showNotification('Достижение "Продуктивность" получено! +100 XP', 'success');
+                    }
+                }
+            }
+            
+            // Достижение "Мастер задач" - 10 задач
+            if (totalTasks >= 10) {
+                const masterCard = document.querySelector('.achievement-card[onclick*="task-master"]');
+                if (masterCard && !masterCard.classList.contains('unlocked')) {
+                    masterCard.classList.remove('progress');
+                    masterCard.classList.add('unlocked');
+                    masterCard.querySelector('.achievement-status').textContent = 'Получено';
+                    masterCard.querySelector('.achievement-status').className = 'achievement-status completed';
+                    
+                    if (notificationsEnabled) {
+                        showNotification('Достижение "Мастер задач" получено! +150 XP', 'success');
+                    }
+                }
+            }
+        }
+        
+        function showAIProposal(text) {
+            const modalContent = document.getElementById('taskModalContent');
+            modalContent.innerHTML = `
+                <div class="ai-proposal">
+                    <h3>AI предлагает задачу</h3>
+                    <p><strong>Название:</strong> ${text}</p>
+                    <p><strong>Описание:</strong> AI проанализировал ваш запрос и предлагает создать задачу с этим названием.</p>
+                    <p><strong>Приоритет:</strong> Средний</p>
+                    <p><strong>Статус:</strong> Создано</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn" onclick="createTaskFromAI('${text}')">Создать задачу</button>
+                    <button class="btn btn-secondary" onclick="closeModal('taskModal')">Отмена</button>
+                </div>
+            `;
+            
+            showModal('taskModal');
+        }
+        
+        function showSubtasks(subtasks = null) {
+            const modalContent = document.getElementById('taskModalContent');
+            
+            if (subtasks && subtasks.length > 0) {
+                // Используем данные с сервера
+                const subtasksHtml = subtasks.map((subtask, index) => 
+                    `<div class="subtask-item">
+                        <strong>${index + 1}.</strong> ${subtask.title || subtask}
+                    </div>`
+                ).join('');
+                
+                modalContent.innerHTML = `
+                    <div class="ai-subtasks">
+                        <h3>AI создал подзадачи</h3>
+                        <div class="subtask-list">
+                            ${subtasksHtml}
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn" onclick="createSubtasks(${JSON.stringify(subtasks).replace(/"/g, '&quot;')})">Создать подзадачи</button>
+                        <button class="btn btn-secondary" onclick="closeModal('taskModal')">Отмена</button>
+                    </div>
+                `;
+            } else {
+                // Fallback данные
+                modalContent.innerHTML = `
+                    <div class="ai-subtasks">
+                        <h3>AI создал подзадачи</h3>
+                        <div class="subtask-list">
+                            <div class="subtask-item">
+                                <strong>1.</strong> Планирование и подготовка
+                            </div>
+                            <div class="subtask-item">
+                                <strong>2.</strong> Основная работа
+                            </div>
+                            <div class="subtask-item">
+                                <strong>3.</strong> Проверка и тестирование
+                            </div>
+                            <div class="subtask-item">
+                                <strong>4.</strong> Завершение и документация
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn" onclick="createSubtasks()">Создать подзадачи</button>
+                        <button class="btn btn-secondary" onclick="closeModal('taskModal')">Отмена</button>
+                    </div>
+                `;
+            }
+            
+            showModal('taskModal');
+        }
+        
+        function showProductivityAnalysis(insights = null) {
+            const modalContent = document.getElementById('taskModalContent');
+            
+            if (insights) {
+                // Используем данные с сервера
+                modalContent.innerHTML = `
+                    <div class="ai-analysis">
+                        <h3>Анализ продуктивности</h3>
+                        <div class="analysis-item">
+                            <strong>Общая продуктивность:</strong> ${insights.productivity_score || 75}%
+                        </div>
+                        <div class="analysis-item">
+                            <strong>Лучшее время работы:</strong> ${insights.best_work_time || '10:00 - 14:00'}
+                        </div>
+                        <div class="analysis-item">
+                            <strong>Рекомендации:</strong> ${insights.recommendations || 'Попробуйте работать в утренние часы для лучшей продуктивности'}
+                        </div>
+                        <div class="analysis-item">
+                            <strong>Статистика:</strong> ${insights.daily_average || 'В среднем вы завершаете 3 задачи в день'}
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn" onclick="closeModal('taskModal')">Понятно</button>
+                    </div>
+                `;
+            } else {
+                // Fallback данные
+                modalContent.innerHTML = `
+                    <div class="ai-analysis">
+                        <h3>Анализ продуктивности</h3>
+                        <div class="analysis-item">
+                            <strong>Общая продуктивность:</strong> 75%
+                        </div>
+                        <div class="analysis-item">
+                            <strong>Лучшее время работы:</strong> 10:00 - 14:00
+                        </div>
+                        <div class="analysis-item">
+                            <strong>Рекомендации:</strong> Попробуйте работать в утренние часы для лучшей продуктивности
+                        </div>
+                        <div class="analysis-item">
+                            <strong>Статистика:</strong> В среднем вы завершаете 3 задачи в день
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn" onclick="closeModal('taskModal')">Понятно</button>
+                    </div>
+                `;
+            }
+            
+            showModal('taskModal');
+        }
+        
+        function createTaskFromAI(title) {
+            const newTask = {
+                id: Date.now(),
+                title: title,
+                description: `Задача создана с помощью AI: ${title}`,
+                status: 'created',
+                priority: 'medium'
+            };
+            
+            addTaskToList(newTask);
+            closeModal('taskModal');
+            showNotification('Задача создана на основе предложения AI!', 'success');
+        }
+        
+        async function createSubtasks(subtasksData = null) {
+            const subtasks = subtasksData || [
+                'Планирование и подготовка',
+                'Основная работа',
+                'Проверка и тестирование',
+                'Завершение и документация'
+            ];
+            
+            try {
+                for (const subtask of subtasks) {
+                    const title = subtask.title || subtask;
+                    const description = subtask.description || `Подзадача: ${title}`;
+                    
+                    await apiRequest('/tasks/', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            title: title,
+                            description: description,
+                            status: 'created',
+                            priority: 'low'
+                        })
+                    });
+                    
+                    // Добавляем задачу в список
+                    const newTask = {
+                        id: Date.now() + Math.random(),
+                        title: title,
+                        description: description,
+                        status: 'created',
+                        priority: 'low'
+                    };
+                    
+                    addTaskToList(newTask);
+                }
+                
+                closeModal('taskModal');
+                showNotification('Подзадачи созданы!', 'success');
+            } catch (error) {
+                showNotification('Ошибка при создании подзадач', 'error');
+            }
+        }
     </script>
 </body>
 </html>

@@ -1,150 +1,169 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-  View, Text, StyleSheet, Dimensions, Animated,
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Dimensions,
+  Platform,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width, height } = Dimensions.get('window');
 
 const SplashScreen = () => {
-  const logoScale = new Animated.Value(0);
-  const logoOpacity = new Animated.Value(0);
-  const titleOpacity = new Animated.Value(0);
-  const subtitleOpacity = new Animated.Value(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.8)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
-    startAnimation();
-  }, []);
-
-  const startAnimation = () => {
-    Animated.sequence([
+    const animations = [
       Animated.parallel([
-        Animated.timing(logoScale, {
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
           toValue: 1,
           duration: 800,
           useNativeDriver: true,
         }),
-        Animated.timing(logoOpacity, {
-          toValue: 1,
+        Animated.timing(slideAnim, {
+          toValue: 0,
           duration: 800,
           useNativeDriver: true,
         }),
       ]),
-      Animated.timing(titleOpacity, {
-        toValue: 1,
-        duration: 600,
-        useNativeDriver: true,
-      }),
-      Animated.timing(subtitleOpacity, {
-        toValue: 1,
-        duration: 600,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
+      Animated.sequence([
+        Animated.delay(500),
+        Animated.timing(scaleAnim, {
+          toValue: 1.1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]),
+    ];
+
+    Animated.sequence(animations).start();
+  }, [fadeAnim, scaleAnim, slideAnim]);
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={['#4CAF50', '#45a049', '#2E7D32']}
-        style={styles.gradient}
-      >
-        <View style={styles.content}>
-          <Animated.View
-            style={[
-              styles.logoContainer,
-              {
-                transform: [{ scale: logoScale }],
-                opacity: logoOpacity,
-              },
-            ]}
-          >
-            <View style={styles.logo}>
-              <Icon name="assignment" size={80} color="#fff" />
-            </View>
-          </Animated.View>
-
-          <Animated.Text
-            style={[
-              styles.title,
-              { opacity: titleOpacity },
-            ]}
-          >
-            Task Manager
-          </Animated.Text>
-
-          <Animated.Text
-            style={[
-              styles.subtitle,
-              { opacity: subtitleOpacity },
-            ]}
-          >
-            Управляйте задачами с удовольствием
-          </Animated.Text>
-
-          <View style={styles.features}>
-            <View style={styles.feature}>
-              <Icon name="emoji-events" size={20} color="#fff" />
-              <Text style={styles.featureText}>Геймификация</Text>
-            </View>
-            <View style={styles.feature}>
-              <Icon name="smart-toy" size={20} color="#fff" />
-              <Text style={styles.featureText}>AI-ассистент</Text>
-            </View>
-            <View style={styles.feature}>
-              <Icon name="analytics" size={20} color="#fff" />
-              <Text style={styles.featureText}>Аналитика</Text>
-            </View>
+    <LinearGradient
+      colors={['#667eea', '#764ba2', '#f093fb']}
+      style={styles.container}
+    >
+      <View style={styles.content}>
+        <Animated.View
+          style={[
+            styles.iconContainer,
+            {
+              opacity: fadeAnim,
+              transform: [
+                { scale: scaleAnim },
+                { translateY: slideAnim },
+              ],
+            },
+          ]}
+        >
+          <View style={styles.iconBackground}>
+            <Icon name="assignment" size={80} color="#fff" />
           </View>
-        </View>
+        </Animated.View>
 
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>
-            Версия 1.0.0
-          </Text>
-        </View>
-      </LinearGradient>
-    </View>
+        <Animated.View
+          style={[
+            styles.textContainer,
+            {
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
+        >
+          <Text style={styles.title}>Task Manager</Text>
+          <Text style={styles.subtitle}>Управляйте задачами с удовольствием</Text>
+        </Animated.View>
+
+        <Animated.View
+          style={[
+            styles.featuresContainer,
+            {
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
+        >
+          <View style={styles.feature}>
+            <Icon name="emoji-events" size={24} color="#fff" />
+            <Text style={styles.featureText}>Геймификация</Text>
+          </View>
+          <View style={styles.feature}>
+            <Icon name="smart-toy" size={24} color="#fff" />
+            <Text style={styles.featureText}>AI-ассистент</Text>
+          </View>
+          <View style={styles.feature}>
+            <Icon name="trending-up" size={24} color="#fff" />
+            <Text style={styles.featureText}>Аналитика</Text>
+          </View>
+        </Animated.View>
+
+        <Animated.View
+          style={[
+            styles.loadingContainer,
+            {
+              opacity: fadeAnim,
+            },
+          ]}
+        >
+          <View style={styles.loadingDots}>
+            <View style={[styles.dot, styles.dot1]} />
+            <View style={[styles.dot, styles.dot2]} />
+            <View style={[styles.dot, styles.dot3]} />
+          </View>
+        </Animated.View>
+      </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  gradient: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   content: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 40,
   },
-  logoContainer: {
+  iconContainer: {
     marginBottom: 40,
   },
-  logo: {
+  iconBackground: {
     width: 120,
     height: 120,
     borderRadius: 60,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  textContainer: {
+    alignItems: 'center',
+    marginBottom: 60,
   },
   title: {
     fontSize: 36,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 16,
+    marginBottom: 10,
     textAlign: 'center',
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
@@ -152,35 +171,49 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    color: '#fff',
-    opacity: 0.9,
+    color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
-    marginBottom: 60,
     lineHeight: 24,
   },
-  features: {
+  featuresContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
-    maxWidth: 300,
+    marginBottom: 60,
   },
   feature: {
     alignItems: 'center',
-    gap: 8,
+    flex: 1,
   },
   featureText: {
-    fontSize: 14,
     color: '#fff',
-    opacity: 0.9,
+    fontSize: 14,
+    marginTop: 8,
     textAlign: 'center',
+    fontWeight: '500',
   },
-  footer: {
-    paddingBottom: 40,
+  loadingContainer: {
+    marginTop: 40,
   },
-  footerText: {
-    fontSize: 14,
-    color: '#fff',
+  loadingDots: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#fff',
+    marginHorizontal: 4,
+  },
+  dot1: {
+    opacity: 0.4,
+  },
+  dot2: {
     opacity: 0.7,
+  },
+  dot3: {
+    opacity: 1,
   },
 });
 

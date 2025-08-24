@@ -2,13 +2,11 @@ from typing import List, Optional, Dict, Any
 from uuid import UUID, uuid4
 from datetime import datetime, date, timedelta
 from app.models import Task, TaskCreate, TaskUpdate, TaskStatus, TaskPriority
-from app.cache import cache_result, invalidate_cache_pattern, get_cache
 
 class TaskDatabase:
     def __init__(self):
         self.tasks: Dict[UUID, Task] = {}
     
-    @cache_result(ttl=60, key_prefix="tasks")
     def get_tasks(self, skip: int = 0, limit: int = 100, sort_by: str = "created_at", order: str = "desc") -> List[Task]:
         tasks = list(self.tasks.values())
         
@@ -25,13 +23,12 @@ class TaskDatabase:
         
         return tasks[skip:skip + limit]
     
-    @cache_result(ttl=300, key_prefix="task")
     def get_task(self, task_id: UUID) -> Optional[Task]:
         return self.tasks.get(task_id)
     
     def create_task(self, task_create: TaskCreate) -> Task:
         task_id = uuid4()
-        now = datetime.utcnow()
+        now = datetime.now()
         
         task = Task(
             id=task_id,
@@ -47,16 +44,7 @@ class TaskDatabase:
         
         self.tasks[task_id] = task
         
-        # Инвалидация кэша
-        invalidate_cache_pattern("tasks")
-        invalidate_cache_pattern("task")
-        invalidate_cache_pattern("stats")
-        
-        # Trigger gamification event
-        if hasattr(self, 'gamification_service') and self.gamification_service:
-            self.gamification_service.check_achievements("admin", "task_created", 1)
-            # Add XP for creating task
-            self.gamification_service.add_xp("admin", 10)
+        print(f"Task created: {task.title}")
         
         return task
     
@@ -80,204 +68,57 @@ class TaskDatabase:
         if task_update.due_date is not None:
             task.due_date = task_update.due_date
         
-        task.updated_at = datetime.utcnow()
+        task.updated_at = datetime.now()
         
-        # Инвалидация кэша
-        invalidate_cache_pattern("tasks")
-        invalidate_cache_pattern(f"task:{task_id}")
-        invalidate_cache_pattern("stats")
-        
-        # Trigger gamification events
         if task_update.status == TaskStatus.COMPLETED and old_status != TaskStatus.COMPLETED:
-            # Task completed - trigger achievement check
-            if hasattr(self, 'gamification_service') and self.gamification_service:
-                self.gamification_service.check_achievements("admin", "task_completed", 1)
-                # Add XP for completing task
-                xp_amount = 20
-                if task.priority.value >= 4:  # High priority
-                    xp_amount += 10
-                self.gamification_service.add_xp("admin", xp_amount)
+            print(f"Task completed: {task.title}")
+        else:
+            print(f"Task updated: {task.title}")
         
         return task
     
     def delete_task(self, task_id: UUID) -> bool:
         if task_id in self.tasks:
             del self.tasks[task_id]
-            
-            # Инвалидация кэша
-            invalidate_cache_pattern("tasks")
-            invalidate_cache_pattern(f"task:{task_id}")
-            invalidate_cache_pattern("stats")
-            
+            print(f"Task deleted: {task_id}")
             return True
         return False
     
-    @cache_result(ttl=120, key_prefix="tasks_by_status")
-    def get_tasks_by_status(self, status: str) -> List[Task]:
-        return [task for task in self.tasks.values() if task.status.value == status]
+    def get_task_stats(self) -> Dict[str, Any]:
+        tasks = self.get_tasks()
+        total = len(tasks)
+        completed = len([t for t in tasks if t.status == TaskStatus.COMPLETED])
+        in_progress = len([t for t in tasks if t.status == TaskStatus.IN_PROGRESS])
+        overdue = len([t for t in tasks if t.status == TaskStatus.OVERDUE])
+        
+        return {
+            "total": total,
+            "completed": completed,
+            "in_progress": in_progress,
+            "overdue": overdue,
+            "completion_rate": (completed / total * 100) if total > 0 else 0
+        }
     
-    @cache_result(ttl=120, key_prefix="search_tasks")
     def search_tasks(self, query: str, limit: int = 50) -> List[Task]:
         query_lower = query.lower()
-        results = []
+        matching_tasks = []
         
         for task in self.tasks.values():
             if (query_lower in task.title.lower() or 
-                (task.description and query_lower in task.description.lower()) or
-                any(query_lower in tag.lower() for tag in (task.tags or []))):
-                results.append(task)
-                if len(results) >= limit:
+                query_lower in task.description.lower() or
+                any(query_lower in tag.lower() for tag in task.tags)):
+                matching_tasks.append(task)
+                if len(matching_tasks) >= limit:
                     break
         
-        return results
+        return matching_tasks
     
-    @cache_result(ttl=120, key_prefix="tasks_filtered")
-    def get_tasks_filtered(self, status: Optional[TaskStatus], tags: Optional[List[str]], 
-                          priority: Optional[int], skip: int = 0, limit: int = 100,
-                          sort_by: str = "created_at", order: str = "desc") -> List[Task]:
-        filtered_tasks = []
-        
-        for task in self.tasks.values():
-            if status and task.status != status:
-                continue
-            if tags and not any(tag in (task.tags or []) for tag in tags):
-                continue
-            if priority and task.priority.value != priority:
-                continue
-            filtered_tasks.append(task)
-        
-        if sort_by == "title":
-            filtered_tasks.sort(key=lambda x: x.title, reverse=(order == "desc"))
-        elif sort_by == "status":
-            filtered_tasks.sort(key=lambda x: x.status.value, reverse=(order == "desc"))
-        elif sort_by == "priority":
-            filtered_tasks.sort(key=lambda x: x.priority.value, reverse=(order == "desc"))
-        elif sort_by == "due_date":
-            filtered_tasks.sort(key=lambda x: x.due_date or date.max, reverse=(order == "desc"))
-        else:
-            filtered_tasks.sort(key=lambda x: x.created_at or datetime.min, reverse=(order == "desc"))
-        
-        return filtered_tasks[skip:skip + limit]
-    
-    @cache_result(ttl=300, key_prefix="tasks_stats")
-    def get_tasks_stats(self) -> Dict[str, Any]:
-        total_tasks = len(self.tasks)
-        if total_tasks == 0:
-            return {
-                "total_tasks": 0,
-                "status_distribution": {},
-                "priority_distribution": {},
-                "popular_tags": [],
-                "completion_rate": 0.0
-            }
-        
-        status_distribution = {}
-        priority_distribution = {}
-        tag_counts = {}
-        completed_count = 0
-        
-        for task in self.tasks.values():
-            status_distribution[task.status.value] = status_distribution.get(task.status.value, 0) + 1
-            priority_distribution[task.priority.value] = priority_distribution.get(task.priority.value, 0) + 1
-            
-            if task.status == TaskStatus.COMPLETED:
-                completed_count += 1
-            
-            if task.tags:
-                for tag in task.tags:
-                    tag_counts[tag] = tag_counts.get(tag, 0) + 1
-        
-        popular_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)[:10]
-        popular_tags = [tag for tag, count in popular_tags]
-        
-        return {
-            "total_tasks": total_tasks,
-            "status_distribution": status_distribution,
-            "priority_distribution": priority_distribution,
-            "popular_tags": popular_tags,
-            "completion_rate": (completed_count / total_tasks) * 100
-        }
-    
-    def bulk_update_status(self, task_ids: List[UUID], status: TaskStatus) -> int:
-        updated_count = 0
-        for task_id in task_ids:
-            if task_id in self.tasks:
-                self.tasks[task_id].status = status
-                self.tasks[task_id].updated_at = datetime.utcnow()
-                updated_count += 1
-        
-        if updated_count > 0:
-            invalidate_cache_pattern("tasks")
-            invalidate_cache_pattern("stats")
-        
-        return updated_count
-    
-    def bulk_delete_tasks(self, task_ids: List[UUID]) -> int:
-        deleted_count = 0
-        for task_id in task_ids:
-            if task_id in self.tasks:
-                del self.tasks[task_id]
-                deleted_count += 1
-        
-        if deleted_count > 0:
-            invalidate_cache_pattern("tasks")
-            invalidate_cache_pattern("stats")
-        
-        return deleted_count
-    
-    @cache_result(ttl=180, key_prefix="tasks_by_date")
-    def get_tasks_by_date_range(self, start_date: datetime, end_date: datetime, 
-                               skip: int = 0, limit: int = 100) -> List[Task]:
-        tasks = []
-        for task in self.tasks.values():
-            if task.created_at and start_date <= task.created_at <= end_date:
-                tasks.append(task)
-                if len(tasks) >= limit:
-                    break
-        
-        return tasks[skip:skip + limit]
-    
-    @cache_result(ttl=300, key_prefix="overdue_tasks")
-    def get_overdue_tasks(self) -> List[Task]:
-        today = date.today()
-        overdue_tasks = []
-        
-        for task in self.tasks.values():
-            if (task.due_date and task.due_date < today and 
-                task.status != TaskStatus.COMPLETED):
-                overdue_tasks.append(task)
-        
-        return overdue_tasks
-    
-    @cache_result(ttl=300, key_prefix="due_soon_tasks")
-    def get_tasks_due_soon(self, days: int = 7) -> List[Task]:
-        today = date.today()
-        end_date = today + timedelta(days=days)
-        due_soon_tasks = []
-        
-        for task in self.tasks.values():
-            if (task.due_date and today <= task.due_date <= end_date and 
-                task.status != TaskStatus.COMPLETED):
-                due_soon_tasks.append(task)
-        
-        return due_soon_tasks
-    
-    def update_overdue_status(self) -> int:
-        today = date.today()
-        updated_count = 0
-        
-        for task in self.tasks.values():
-            if (task.due_date and task.due_date < today and 
-                task.status != TaskStatus.COMPLETED):
-                task.status = TaskStatus.OVERDUE
-                task.updated_at = datetime.utcnow()
-                updated_count += 1
-        
-        if updated_count > 0:
-            invalidate_cache_pattern("overdue_tasks")
-            invalidate_cache_pattern("stats")
-        
-        return updated_count
+    def get_tasks_by_status(self, status_value: str) -> List[Task]:
+        try:
+            status = TaskStatus(status_value)
+            return [t for t in self.tasks.values() if t.status == status]
+        except ValueError:
+            return []
 
 # Глобальный экземпляр базы данных
 task_db = TaskDatabase()

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Simple</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #8B5A96 0%, #A0522D 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .task-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+        }
+        
+        .tasks-list {
+            margin-top: 20px;
+        }
+        
+        .task-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .task-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .task-description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .task-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status.created { background: #e3f2fd; color: #1976d2; }
+        .status.in_progress { background: #fff3e0; color: #f57c00; }
+        .status.completed { background: #e8f5e8; color: #388e3c; }
+        .status.overdue { background: #ffebee; color: #d32f2f; }
+        
+        .priority {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .priority.low { background: #e8f5e8; color: #388e3c; }
+        .priority.medium { background: #fff3e0; color: #f57c00; }
+        .priority.high { background: #ffebee; color: #d32f2f; }
+        .priority.critical { background: #fce4ec; color: #c2185b; }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B5A96;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #d32f2f;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .success {
+            background: #e8f5e8;
+            color: #388e3c;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Task Manager</h1>
+            <p>Simple and Clean Task Management</p>
+        </div>
+        
+        <div class="content">
+            <div class="task-form">
+                <h2>Create New Task</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Title</label>
+                        <input type="text" id="taskTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskPriority">Priority</label>
+                        <select id="taskPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskTags">Tags (comma separated)</label>
+                        <input type="text" id="taskTags" placeholder="work, project, urgent">
+                    </div>
+                    
+                    <button type="submit" class="btn">Create Task</button>
+                </form>
+            </div>
+            
+            <div class="stats" id="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTasks">0</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completedTasks">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="inProgressTasks">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="overdueTasks">0</div>
+                    <div class="stat-label">Overdue</div>
+                </div>
+            </div>
+            
+            <div class="tasks-list" id="tasksList">
+                <h2>Tasks</h2>
+                <div id="tasksContainer"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        
+        async function apiRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API request failed:', error);
+                throw error;
+            }
+        }
+        
+        function showMessage(message, type = 'success') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            
+            const content = document.querySelector('.content');
+            content.insertBefore(messageDiv, content.firstChild);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+        
+        function getPriorityText(priority) {
+            const priorities = {
+                'low': 'Low',
+                'medium': 'Medium',
+                'high': 'High',
+                'critical': 'Critical'
+            };
+            return priorities[priority] || priority;
+        }
+        
+        function getStatusText(status) {
+            const statuses = {
+                'created': 'Created',
+                'in_progress': 'In Progress',
+                'completed': 'Completed',
+                'overdue': 'Overdue'
+            };
+            return statuses[status] || status;
+        }
+        
+        function addTaskToList(task) {
+            const container = document.getElementById('tasksContainer');
+            const taskDiv = document.createElement('div');
+            taskDiv.className = 'task-item';
+            
+            taskDiv.innerHTML = `
+                <div class="task-title">${task.title}</div>
+                <div class="task-description">${task.description || 'No description'}</div>
+                <div class="task-meta">
+                    <span class="status ${task.status}">${getStatusText(task.status)}</span>
+                    <span class="priority ${task.priority}">${getPriorityText(task.priority)}</span>
+                    <span>Created: ${new Date(task.created_at).toLocaleDateString()}</span>
+                    ${task.tags && task.tags.length > 0 ? `<span>Tags: ${task.tags.join(', ')}</span>` : ''}
+                </div>
+            `;
+            
+            container.appendChild(taskDiv);
+        }
+        
+        async function loadTasks() {
+            try {
+                const tasks = await apiRequest('/tasks/');
+                const container = document.getElementById('tasksContainer');
+                container.innerHTML = '<h2>Tasks</h2>';
+                
+                tasks.forEach(task => {
+                    addTaskToList(task);
+                });
+                
+                updateStats(tasks);
+            } catch (error) {
+                showMessage('Failed to load tasks: ' + error.message, 'error');
+            }
+        }
+        
+        function updateStats(tasks) {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.status === 'completed').length;
+            const inProgress = tasks.filter(t => t.status === 'in_progress').length;
+            const overdue = tasks.filter(t => t.status === 'overdue').length;
+            
+            document.getElementById('totalTasks').textContent = total;
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('inProgressTasks').textContent = inProgress;
+            document.getElementById('overdueTasks').textContent = overdue;
+        }
+        
+        document.getElementById('taskForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                title: document.getElementById('taskTitle').value,
+                description: document.getElementById('taskDescription').value,
+                priority: document.getElementById('taskPriority').value,
+                tags: document.getElementById('taskTags').value.split(',').map(tag => tag.trim()).filter(tag => tag)
+            };
+            
+            try {
+                const newTask = await apiRequest('/tasks/', {
+                    method: 'POST',
+                    body: JSON.stringify(formData)
+                });
+                
+                addTaskToList(newTask);
+                document.getElementById('taskForm').reset();
+                showMessage('Task created successfully!');
+                
+                // Reload stats
+                const tasks = await apiRequest('/tasks/');
+                updateStats(tasks);
+                
+            } catch (error) {
+                showMessage('Failed to create task: ' + error.message, 'error');
+            }
+        });
+        
+        // Load tasks on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTasks();
+        });
+    </script>
+</body>
+</html>
